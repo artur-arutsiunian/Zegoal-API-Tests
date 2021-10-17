@@ -1,7 +1,5 @@
 package rest.objects.client.get;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.annotation.processing.Generated;
 
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "pk",
@@ -23,7 +20,6 @@ import javax.annotation.processing.Generated;
         "description",
         "main_location",
         "is_editable",
-        "connected_users",
         "ordering_accounts",
         "external_id"
 })
@@ -40,26 +36,12 @@ public class Result {
     private Integer mainLocation;
     @JsonProperty("is_editable")
     private Boolean isEditable;
-    @JsonProperty("connected_users")
-    private List<String> connectedUsers = null;
     @JsonProperty("ordering_accounts")
     private List<Object> orderingAccounts = null;
     @JsonProperty("external_id")
     private Object externalId;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-//    public Result(int pk, String name, String description, int main_location, boolean isEditable,  String externalId) {
-//
-//
-//        this.pk = pk;
-//        this.name = name;
-//        this.description = description;
-//        this.mainLocation = main_location;
-//        this.isEditable = isEditable;
-//        this.externalId = externalId;
-//
-//    }
 
     @JsonProperty("pk")
     public Integer getPk() {
@@ -109,16 +91,6 @@ public class Result {
     @JsonProperty("is_editable")
     public void setIsEditable(Boolean isEditable) {
         this.isEditable = isEditable;
-    }
-
-    @JsonProperty("connected_users")
-    public List<String> getConnectedUsers() {
-        return connectedUsers;
-    }
-
-    @JsonProperty("connected_users")
-    public void setConnectedUsers(List<String> connectedUsers) {
-        this.connectedUsers = connectedUsers;
     }
 
     @JsonProperty("ordering_accounts")
