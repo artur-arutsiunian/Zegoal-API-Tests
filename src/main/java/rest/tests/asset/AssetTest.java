@@ -14,19 +14,19 @@ public class AssetTest extends BaseTest {
 
     @Test
     public void checkCreateAsset(){
-        assertEquals(service.getCreateAsset(token).getName(), "qwer102",
+        assertEquals(service.getCreateAsset(token).getName(), "qwer107",
                 "Asset isn't created");
     }
 
     @Test
     public void checkPatchAsset(){
-        assertEquals(service.getPatchAsset(token).getLocation(), 6,
+        assertEquals(service.getPatchAsset(token).getLocation(), 8,
                 "Asset isn't updated");
     }
 
     @Test
     public void checkGetAsset(){
-        assertEquals(service.getGetAsset(token).getCount(), 7,
+        assertEquals(service.getGetAsset(token).getCount(), 9,
                 "Quantity of assets aren't correct");
     }
 }

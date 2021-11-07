@@ -41,7 +41,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequest initCreateAsset(Object[]... field) {
         return
-                new AssetRequest("qwer102", 3);
+                new AssetRequest("qwer107", 3);
     }
 
 //    private Map<String, Object> initCreateAsset(String name, int location) {
@@ -71,7 +71,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequestPatch initPatchAsset(Object[]... field) {
         return
-                new AssetRequestPatch(6);
+                new AssetRequestPatch(8);
     }
 
 //    private Map<String, Object> initPatchAsset(int location) {
