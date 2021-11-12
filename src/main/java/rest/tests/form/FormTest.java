@@ -8,7 +8,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import rest.objects.asset.post.PostAsset;
 import rest.objects.form.FormRequest;
 import rest.objects.token.Token;
-import service.BaseService;
+import rest.tests.BaseTest;
 import service.impl.FormService;
 
 import static io.restassured.RestAssured.given;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Execution(ExecutionMode.CONCURRENT)
 
 
-public class FormTest extends BaseService {
+public class FormTest extends BaseTest {
 
     private FormService service = new FormService();
     private boolean isCheckCreateForm = false;
@@ -31,7 +31,7 @@ public class FormTest extends BaseService {
     @Order(1)
     @Test
     public void checkCreateForm() {
-        assertEquals(service.getCreateForm(token).getName(), "loi9",
+        assertEquals(service.getCreateForm().getName(), "loi9",
                 "Form isn't created");
         isCheckCreateForm = true;
     }
@@ -40,7 +40,7 @@ public class FormTest extends BaseService {
     @Test
     public void checkPutForm() {
         Assumptions.assumeTrue(isCheckCreateForm);
-        assertEquals(service.getPutForm(token).getName(), "qwer86",
+        assertEquals(service.getPutForm().getName(), "qwer86",
                 "Form isn't updated");
         isCheckPutForm = true;
     }
@@ -49,26 +49,26 @@ public class FormTest extends BaseService {
     @Test
     public void checkGetForm() {
         Assumptions.assumeTrue(isCheckPutForm);
-        assertEquals(service.getGetForm(token).getCount(), 40,
+        assertEquals(service.getGetForm().getCount(), 40,
                 "Quantity of forms aren't correct");
     }
 
     @Test
     public void checkCreateFormForProd() {
-        assertEquals(service.getCreateFormForProd(token).getName(), "loi9",
+        assertEquals(service.getCreateFormForProd().getName(), "loi9",
                 "Form isn't created");
     }
 
     @Test
     public void checkPutFormForProd() {
-        assertEquals(service.getPutFormForProd(token).getName(), "qwer86",
+        assertEquals(service.getPutFormForProd().getName(), "qwer86",
                 "Form isn't updated");
 
     }
 
     @Test
     public void checkGetFormForProd() {
-        assertEquals(service.getGetFormForProd(token).getCount(), 3,
+        assertEquals(service.getGetFormForProd().getCount(), 3,
                 "Quantity of forms aren't correct");
     }
 }

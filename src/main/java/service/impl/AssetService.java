@@ -9,20 +9,15 @@ import rest.objects.asset.AssetRequestPatch;
 import rest.objects.asset.get.GetAsset;
 import rest.objects.asset.patch.PatchAsset;
 import rest.objects.asset.post.PostAsset;
-import rest.objects.token.Token;
 import service.BaseService;
 
 import static io.restassured.RestAssured.given;
 
 public class AssetService extends BaseService {
 
-    private final static String ASSET_CREATE_ENDPOINT = "/api/v1/asset/";
-    private final static String ASSET_PATCH_ENDPOINT = "/api/v1/asset/1/";
-    private final static String ASSET_GET_ENDPOINT = "/api/v1/asset/";
     private final RequestBuilder requestBuilder = new RequestBuilder();
 
-    public PostAsset getCreateAsset(Token token) {
-
+    public PostAsset createAsset() {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateAsset())
@@ -49,14 +44,12 @@ public class AssetService extends BaseService {
 //        return body;
 //    }
 
-    public PatchAsset getPatchAsset(Token token) {
+    public PatchAsset getPatchAsset() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchAsset())
-                .patch(url + ASSET_PATCH_ENDPOINT)
+                .patch("1/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -78,13 +71,11 @@ public class AssetService extends BaseService {
 //        return body;
 //    }
 
-    public GetAsset getGetAsset(Token token) {
+    public GetAsset getAsset() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + ASSET_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -95,7 +86,7 @@ public class AssetService extends BaseService {
 
     private class RequestBuilder {
 
-        private RequestSpecification requestSpec;
+        private final RequestSpecification requestSpec;
 
         public RequestBuilder() {
             this.requestSpec = new RequestSpecBuilder()
@@ -105,7 +96,5 @@ public class AssetService extends BaseService {
                     .addHeader("Authorization", "Bearer " + token.getAccessToken())
                     .build();
         }
-
-
     }
 }

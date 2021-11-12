@@ -32,7 +32,7 @@ public class UserService extends BaseService {
 //        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 //    }
 
-    public CreateUser getCreateUser(Token token) {
+    public CreateUser getCreateUser() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -69,7 +69,7 @@ public class UserService extends BaseService {
 //        return body;
 //    }
 
-    public Profile getPatchUser(Token token) {
+    public Profile getPatchUser() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -99,7 +99,7 @@ public class UserService extends BaseService {
 //        return profile;
 //    }
 
-    public GetUser getGetUser(Token token) {
+    public GetUser getGetUser() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())

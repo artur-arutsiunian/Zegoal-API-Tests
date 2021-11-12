@@ -20,7 +20,7 @@ public class EpicService extends BaseService {
     private final static String EPIC_PATCH_ENDPOINT= "/api/v1/epic/2/";
     private final static String EPIC_GET_ENDPOINT= "/api/v1/epic/";
 
-    public PostEpic getCreateEpic(Token token) {
+    public PostEpic getCreateEpic() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -42,7 +42,7 @@ public class EpicService extends BaseService {
                 new EpicRequest("2021-10-13T21:00:00", "2021-10-13T21:00:00", "new epic2", List.of(23));
     }
 
-    public PatchEpic getPatchEpic(Token token) {
+    public PatchEpic getPatchEpic() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -64,7 +64,7 @@ public class EpicService extends BaseService {
                 new EpicRequestPatch("2021-10-16");
     }
 
-    public GetEpic getGetEpic(Token token) {
+    public GetEpic getGetEpic() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -79,11 +79,11 @@ public class EpicService extends BaseService {
                 .as(GetEpic.class);
     }
 
-    public PostEpic getCreateEpicForProd(Token tokenProd) {
+    public PostEpic getCreateEpicForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateEpicForProd())
                 .post(url + EPIC_CREATE_ENDPOINT)
@@ -101,11 +101,11 @@ public class EpicService extends BaseService {
                 new EpicRequest("2021-11-13T21:00:00", "2021-11-14T21:00:00", "new epic2", List.of(4));
     }
 
-    public PatchEpic getPatchEpicForProd(Token tokenProd) {
+    public PatchEpic getPatchEpicForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchEpicForProd())
                 .patch(url + EPIC_PATCH_ENDPOINT)
@@ -123,11 +123,11 @@ public class EpicService extends BaseService {
                 new EpicRequestPatch("2021-11-12");
     }
 
-    public GetEpic getGetEpicForProd(Token tokenProd) {
+    public GetEpic getGetEpicForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + EPIC_GET_ENDPOINT)
                 .then()

@@ -19,7 +19,7 @@ public class ContactExternalService extends BaseService {
     private final static String CONTACT_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_contact/list_update/";
     private final static String CONTACT_GET_EXTERNAL_ENDPOINT = "/api/external/contact/";
 
-    public List<PatchContactExternal> getPatchContactExternal(Auth auth) {
+    public List<PatchContactExternal> getPatchContactExternal() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -42,7 +42,7 @@ public class ContactExternalService extends BaseService {
                 new ContactRequestForPatchExternal(4, true));
     }
 
-    public GetContactExternal getGetContactExternal(Auth auth) {
+    public GetContactExternal getGetContactExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -56,7 +56,7 @@ public class ContactExternalService extends BaseService {
                 .as(GetContactExternal.class);
     }
 
-    public List<PatchContactExternal> getPatchContactExternalForProd(Auth authProd) {
+    public List<PatchContactExternal> getPatchContactExternalForProd() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -79,7 +79,7 @@ public class ContactExternalService extends BaseService {
                 new ContactRequestForPatchExternal(2, true));
     }
 
-    public GetContactExternal getGetContactExternalForProd(Auth auth) {
+    public GetContactExternal getGetContactExternalForProd() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

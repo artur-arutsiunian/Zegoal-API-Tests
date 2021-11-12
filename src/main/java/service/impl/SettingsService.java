@@ -19,7 +19,7 @@ public class SettingsService extends BaseService {
     private final static String PATCH_SETTINGS_ENDPOINT = "/api/v1/settings/list_update/";
     private final static String GET_SETTINGS_ENDPOINT = "/api/v1/settings";
 
-    public List<PatchSetting> getPatchSettings(Token token) {
+    public List<PatchSetting> getPatchSettings() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -42,7 +42,7 @@ public class SettingsService extends BaseService {
                 new SettingsRequest(2, "UTC+10000"));
     }
 
-    public GetSettings getGetSettings(Token token) {
+    public GetSettings getGetSettings() {
 
         return given()
                 .contentType(ContentType.JSON)

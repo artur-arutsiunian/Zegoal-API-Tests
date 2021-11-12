@@ -20,7 +20,7 @@ public class ContactService extends BaseService {
     private final static String CONTACT_PATCH_ENDPOINT = "/api/v1/contact/1/";
     private final static String CONTACT_GET_ENDPOINT = "/api/v1/contact/";
 
-    public PostContact getCreateContact(Token token) {
+    public PostContact getCreateContact() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -52,7 +52,7 @@ public class ContactService extends BaseService {
 //        return body;
 //    }
 
-    public PatchContact getPatchContact(Token token) {
+    public PatchContact getPatchContact() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -83,7 +83,7 @@ public class ContactService extends BaseService {
 //        return body;
 //    }
 
-    public GetContact getGetContact(Token token) {
+    public GetContact getGetContact() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -98,11 +98,11 @@ public class ContactService extends BaseService {
                 .as(GetContact.class);
     }
 
-    public PostContact getCreateContactForProd(Token tokenProd) {
+    public PostContact getCreateContactForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateContactForProd())
                 .post(url + CONTACT_CREATE_ENDPOINT)
@@ -120,11 +120,11 @@ public class ContactService extends BaseService {
                 new ContactRequest("BRAD7", "291238546", "br7@mail.com", List.of(3));
     }
 
-    public PatchContact getPatchContactForProd(Token tokenProd) {
+    public PatchContact getPatchContactForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchContactForProd())
                 .patch(url + CONTACT_PATCH_ENDPOINT)
@@ -142,11 +142,11 @@ public class ContactService extends BaseService {
                 new ContactRequestPatch("BRA","br9@mail.com", List.of(3));
     }
 
-    public GetContact getGetContactForProd(Token tokenProd) {
+    public GetContact getGetContactForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + CONTACT_GET_ENDPOINT)
                 .then()

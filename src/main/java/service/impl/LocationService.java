@@ -26,13 +26,13 @@ public class LocationService extends BaseService {
 
     /**
      * Static method which allows us to log request and response data
+     *
      * @see RestAssured#filters(Filter, Filter...)
      */
 //    static {
 //        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 //    }
-
-    public PostLocation getCreateLocation(Token token) {
+    public PostLocation getCreateLocation() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -50,7 +50,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequest initCreateLocation(Object[]... field) {
         return
-                new LocationRequest(1, new PointPojo("Point", List.of(27,53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
+                new LocationRequest(1, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
     }
 
 //    private Map<String, Object> initCreateLocation(String client, String type, List<Integer> coordinates, String name, String raw_address, int radius) {
@@ -68,7 +68,7 @@ public class LocationService extends BaseService {
 //        return body;
 //    }
 
-    public PatchLocation getPatchLocation(Token token){
+    public PatchLocation getPatchLocation() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -86,7 +86,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequestForPatch initPatchLocation(Object[]... field) {
         return
-                new LocationRequestForPatch(1,"mm1");
+                new LocationRequestForPatch(1, "mm1");
     }
 
 //    private Map<String, Object> initPatchLocation(int client, String raw_address) {
@@ -97,7 +97,7 @@ public class LocationService extends BaseService {
 //        return body;
 //    }
 
-    public GetLocation getGetLocation(Token token){
+    public GetLocation getGetLocation() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -112,11 +112,11 @@ public class LocationService extends BaseService {
                 .as(GetLocation.class);
     }
 
-    public PostLocation getCreateLocationForProd(Token tokenProd) {
+    public PostLocation getCreateLocationForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateLocationForProd())
                 .post(url + LOCATION_CREATE_ENDPOINT)
@@ -130,14 +130,14 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequest initCreateLocationForProd(Object[]... field) {
         return
-                new LocationRequest(1, new PointPojo("Point", List.of(27,53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
+                new LocationRequest(1, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
     }
 
-    public PatchLocation getPatchLocationForProd(Token tokenProd){
+    public PatchLocation getPatchLocationForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchLocationForProd())
                 .patch(url + LOCATION_PATCH_ENDPOINT)
@@ -151,14 +151,14 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequestForPatch initPatchLocationForProd(Object[]... field) {
         return
-                new LocationRequestForPatch(1,"mm1");
+                new LocationRequestForPatch(1, "mm1");
     }
 
-    public GetLocation getGetLocationForProd(Token tokenProd){
+    public GetLocation getGetLocationForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + LOCATION_GET_ENDPOINT)
                 .then()

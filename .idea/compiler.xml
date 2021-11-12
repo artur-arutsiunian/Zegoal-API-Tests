@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Zegoal API Tests" />
+        <module name="Zegoal API Tests new" />
       </profile>
     </annotationProcessing>
   </component>

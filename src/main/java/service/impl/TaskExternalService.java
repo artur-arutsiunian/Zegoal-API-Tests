@@ -18,7 +18,7 @@ public class TaskExternalService extends BaseService {
     private final static String TASK_CREATE_ENDPOINT = "/api/external/task_bulk/";
     private final static String TASK_GET_ENDPOINT = "/api/external/task/";
 
-    public CreateTaskExternal getCreateTaskExternal(Auth auth) {
+    public CreateTaskExternal getCreateTaskExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -55,7 +55,7 @@ public class TaskExternalService extends BaseService {
 //    }
 
 
-    public GetTaskExternal getGetTaskExternal(Auth auth) {
+    public GetTaskExternal getGetTaskExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

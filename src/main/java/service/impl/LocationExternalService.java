@@ -22,7 +22,7 @@ public class LocationExternalService extends BaseService {
     private final static String LOCATION_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_location/list_update/";
     private final static String LOCATION_GET_EXTERNAL_ENDPOINT = "api/external/location/";
 
-    public PostLocationExternal getCreateLocationExternal(Auth auth) {
+    public PostLocationExternal getCreateLocationExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -44,7 +44,7 @@ public class LocationExternalService extends BaseService {
         new LocationRequestExternal("проспект Дзержинского, 78А", "2021-10-09 17:00"));
     }
 
-    public List<PatchLocationExternal> getPatchLocationExternal(Auth auth) {
+    public List<PatchLocationExternal> getPatchLocationExternal() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -67,7 +67,7 @@ public class LocationExternalService extends BaseService {
                 new LocationRequestForPatchExternal(5, true));
     }
 
-    public GetLocationExternal getGetTLocationExternal(Auth auth) {
+    public GetLocationExternal getGetTLocationExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -81,7 +81,7 @@ public class LocationExternalService extends BaseService {
                 .as(GetLocationExternal.class);
     }
 
-    public PostLocationExternal getCreateLocationExternalForProd(Auth auth) {
+    public PostLocationExternal getCreateLocationExternalForProd() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -102,7 +102,7 @@ public class LocationExternalService extends BaseService {
                 new LocationRequestExternal("проспект Дзержинского, 76А", "2021-10-09 11:00"),
                 new LocationRequestExternal("проспект Дзержинского, 78А", "2021-10-09 17:00"));
     }
-    public List<PatchLocationExternal> getPatchLocationExternalForProd(Auth auth) {
+    public List<PatchLocationExternal> getPatchLocationExternalForProd() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -125,7 +125,7 @@ public class LocationExternalService extends BaseService {
                 new LocationRequestForPatchExternal(3, true));
     }
 
-    public GetLocationExternal getGetTLocationExternalForProd(Auth auth) {
+    public GetLocationExternal getGetTLocationExternalForProd() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

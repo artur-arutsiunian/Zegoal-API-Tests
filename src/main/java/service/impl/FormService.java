@@ -21,7 +21,7 @@ public class FormService extends BaseService{
     private final static String FORM_PUT_ENDPOINT = "/api/v1/form/2/";
     private final static String FORM_GET_ENDPOINT = "/api/v1/form/";
 
-    public PostAsset getCreateForm(Token token) {
+    public PostAsset getCreateForm() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -43,7 +43,7 @@ public class FormService extends BaseService{
                 new FormRequest("loi9", 1);
     }
 
-    public PutForm getPutForm(Token token) {
+    public PutForm getPutForm() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -84,7 +84,7 @@ public class FormService extends BaseService{
 //        return body;
 //    }
 
-    public GetForm getGetForm(Token token) {
+    public GetForm getGetForm() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -99,11 +99,11 @@ public class FormService extends BaseService{
                 .as(GetForm.class);
     }
 
-    public PostAsset getCreateFormForProd(Token tokenProd) {
+    public PostAsset getCreateFormForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateFormForProd())
                 .post(url + FORM_CREATE_ENDPOINT)
@@ -121,11 +121,11 @@ public class FormService extends BaseService{
                 new FormRequest("loi9", 1);
     }
 
-    public PutForm getPutFormForProd(Token tokenProd) {
+    public PutForm getPutFormForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPutFormForProd())
                 .put(url + FORM_PUT_ENDPOINT)
@@ -143,11 +143,11 @@ public class FormService extends BaseService{
                 new FormRequest("qwer86", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
     }
 
-    public GetForm getGetFormForProd(Token tokenProd) {
+    public GetForm getGetFormForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + FORM_GET_ENDPOINT)
                 .then()

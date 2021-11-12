@@ -15,7 +15,7 @@ public class CommentNotificationService extends BaseService {
     private final static String CREATE_COMMENT_NOTIFICATION_ENDPOINT = "/api/v1/task_comment_notification/";
     private final static String GET_COMMENT_NOTIFICATION_ENDPOINT = "/api/v1/task_comment_notification/";
 
-    public PostCommentNotification getCreateCommentNotification(Token token) {
+    public PostCommentNotification getCreateCommentNotification() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -37,7 +37,7 @@ public class CommentNotificationService extends BaseService {
                 new CommentNotificationRequest(2);
     }
 
-    public GetCommentNotification getGetCommentNotification(Token token) {
+    public GetCommentNotification getGetCommentNotification() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -52,11 +52,11 @@ public class CommentNotificationService extends BaseService {
                 .as(GetCommentNotification.class);
     }
 
-    public PostCommentNotification getCreateCommentNotificationForProd(Token tokenProd) {
+    public PostCommentNotification getCreateCommentNotificationForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCommentNotificationForProd())
                 .post(url + CREATE_COMMENT_NOTIFICATION_ENDPOINT)
@@ -74,11 +74,11 @@ public class CommentNotificationService extends BaseService {
                 new CommentNotificationRequest(1);
     }
 
-    public GetCommentNotification getGetCommentNotificationForProd(Token tokenProd) {
+    public GetCommentNotification getGetCommentNotificationForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + GET_COMMENT_NOTIFICATION_ENDPOINT)
                 .then()

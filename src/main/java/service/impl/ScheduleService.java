@@ -20,7 +20,7 @@ public class ScheduleService extends BaseService {
     private final static String SCHEDULE_PUT_ENDPOINT = "/api/v1/user_schedule/1/";
     private final static String SCHEDULE_GET_ENDPOINT = "/api/v1/user_schedule/";
 
-    public PostSchedule getCreateSchedule(Token token) {
+    public PostSchedule getCreateSchedule() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -43,7 +43,7 @@ public class ScheduleService extends BaseService {
         new ScheduleRequest("567238c2-eab1-4ced-b401-fe33ab5112cd", 0, "2021-09-29 8:10", "2021-09-30 17:10", false));
     }
 
-    public PutSchedule getPutSchedule(Token token) {
+    public PutSchedule getPutSchedule() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -65,7 +65,7 @@ public class ScheduleService extends BaseService {
                 new ScheduleRequest("b3653c02-440a-452b-a362-f86237ca8701", 0, "2021-10-06 11:10", "2021-10-07 18:10", false));
 }
 
-    public GetSchedule getGetSchedule(Token token) {
+    public GetSchedule getGetSchedule() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -80,11 +80,11 @@ public class ScheduleService extends BaseService {
                 .as(GetSchedule.class);
     }
 
-    public PostSchedule getCreateScheduleForProd(Token tokenProd) {
+    public PostSchedule getCreateScheduleForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateScheduleForProd())
                 .post(url + SCHEDULE_CREATE_ENDPOINT)
@@ -103,11 +103,11 @@ public class ScheduleService extends BaseService {
                 new ScheduleRequest("8f0690fd-5dd5-4789-9131-290a7caa2fb7", 0, "2021-11-15 8:10", "2021-11-16 17:10", false));
     }
 
-    public PutSchedule getPutScheduleForProd(Token tokenProd) {
+    public PutSchedule getPutScheduleForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPutScheduleForProd())
                 .put(url + SCHEDULE_PUT_ENDPOINT)
@@ -125,11 +125,11 @@ public class ScheduleService extends BaseService {
                 new ScheduleRequest("6969fc50-7be2-4f69-8bca-26090581789c", 0, "2021-11-14 11:10", "2021-11-15 18:10", false));
     }
 
-    public GetSchedule getGetScheduleForProd(Token tokenProd) {
+    public GetSchedule getGetScheduleForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + SCHEDULE_GET_ENDPOINT)
                 .then()

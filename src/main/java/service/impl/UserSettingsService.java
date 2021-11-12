@@ -19,7 +19,7 @@ public class UserSettingsService extends BaseService {
     private final static String PATCH_USER_SETTINGS_ENDPOINT = "/api/v1/user_settings/list_update/";
     private final static String GET_USER_SETTINGS_ENDPOINT = "/api/v1/user_settings/";
 
-    public List<PatchUserSetting> getPatchUserSettings(Token token) {
+    public List<PatchUserSetting> getPatchUserSettings() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -41,7 +41,7 @@ public class UserSettingsService extends BaseService {
                 new SettingsRequest(6, "1"));
     }
 
-    public GetUserSettings getGetUserSettings(Token token) {
+    public GetUserSettings getGetUserSettings() {
 
         return given()
                 .contentType(ContentType.JSON)

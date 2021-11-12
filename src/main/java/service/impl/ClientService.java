@@ -20,7 +20,7 @@ public class ClientService extends BaseService {
     private final static String CLIENT_PATCH_ENDPOINT = "/api/v1/client/2/";
     private final static String CLIENT_GET_ENDPOINT = "/api/v1/client/";
 
-    public PostClient getCreateClient(Token token) {
+    public PostClient getCreateClient() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -53,7 +53,7 @@ public class ClientService extends BaseService {
 //        return body;
 //    }
 
-    public PatchClient getPatchClient(Token token) {
+    public PatchClient getPatchClient() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -82,7 +82,7 @@ public class ClientService extends BaseService {
 //        return body;
 //    }
 
-    public GetClient getGetClient(Token token) {
+    public GetClient getGetClient() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -97,11 +97,11 @@ public class ClientService extends BaseService {
                 .as(GetClient.class);
     }
 
-    public PostClient getCreateClientForProd(Token tokenProd) {
+    public PostClient getCreateClientForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateClientForProd())
                 .post(url + CLIENT_CREATE_ENDPOINT)
@@ -119,11 +119,11 @@ public class ClientService extends BaseService {
                 new ClientRequest("client name98", new MainLocationPojo("main loc"));
     }
 
-    public PatchClient getPatchClientForProd(Token tokenProd) {
+    public PatchClient getPatchClientForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchClientForProd())
                 .patch(url + CLIENT_PATCH_ENDPOINT)
@@ -141,11 +141,11 @@ public class ClientService extends BaseService {
                 new ClientRequest("client name");
     }
 
-    public GetClient getGetClientForProd(Token tokenProd) {
+    public GetClient getGetClientForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + CLIENT_GET_ENDPOINT)
                 .then()

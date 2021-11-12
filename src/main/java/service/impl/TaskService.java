@@ -18,7 +18,7 @@ public class TaskService extends BaseService {
     private final static String TASK_PATCH_ENDPOINT = "/api/v1/task/3/";
     private final static String TASK_GET_ENDPOINT = "/api/v1/task/";
 
-    public CreateTask getCreateTask(Token token) {
+    public CreateTask getCreateTask() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
@@ -54,7 +54,7 @@ public class TaskService extends BaseService {
 //        return body;
 //    }
 
-    public PatchTask getPatchTask(Token token) {
+    public PatchTask getPatchTask() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
@@ -83,7 +83,7 @@ public class TaskService extends BaseService {
 //        return body;
 //    }
 
-    public GetTask getGetTask(Token token) {
+    public GetTask getGetTask() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())

@@ -11,7 +11,7 @@ public class FormExternalService extends BaseService {
 
     private final static String FORM_GET_EXTERNAL_ENDPOINT = "/api/external/form/";
 
-    public GetFormExternal getGetFormExternal(Auth auth) {
+    public GetFormExternal getGetFormExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -25,7 +25,7 @@ public class FormExternalService extends BaseService {
                 .as(GetFormExternal.class);
     }
 
-        public GetFormExternal getGetFormExternalForProd(Auth auth) {
+        public GetFormExternal getGetFormExternalForProd() {
             return given()
                     .contentType(ContentType.JSON)
                     .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

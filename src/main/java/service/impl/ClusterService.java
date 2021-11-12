@@ -20,7 +20,7 @@ public class ClusterService extends BaseService {
     private final static String PUT_CLUSTER_ENDPOINT = "/api/v1/cluster/1/";
     private final static String GET_CLUSTER_ENDPOINT = "/api/v1/cluster/";
 
-    public PostCluster getCreateCluster(Token token) {
+    public PostCluster getCreateCluster() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -42,7 +42,7 @@ public class ClusterService extends BaseService {
                 new ClusterRequest("clus1", List.of("3b96a356-e7f6-41e8-abab-b47793236dc0"));
     }
 
-    public PutCluster getPutCluster(Token token) {
+    public PutCluster getPutCluster() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -64,7 +64,7 @@ public class ClusterService extends BaseService {
                 new ClusterRequestPut("new", List.of("3b96a356-e7f6-41e8-abab-b47793236dc0"));
     }
 
-    public GetCluster getGetCluster(Token token) {
+    public GetCluster getGetCluster() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -79,11 +79,11 @@ public class ClusterService extends BaseService {
                 .as(GetCluster.class);
     }
 
-    public PostCluster getCreateClusterForProd(Token tokenProd) {
+    public PostCluster getCreateClusterForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateClusterForProd())
                 .post(url + CREATE_CLUSTER_ENDPOINT)
@@ -101,11 +101,11 @@ public class ClusterService extends BaseService {
                 new ClusterRequest("clus1", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
-    public PutCluster getPutClusterForProd(Token tokenProd) {
+    public PutCluster getPutClusterForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPutClusterForProd())
                 .patch(url + PUT_CLUSTER_ENDPOINT)
@@ -123,7 +123,7 @@ public class ClusterService extends BaseService {
                 new ClusterRequestPut("new", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
-    public GetCluster getGetClusterForProd(Token token) {
+    public GetCluster getGetClusterForProd() {
 
         return given()
                 .contentType(ContentType.JSON)

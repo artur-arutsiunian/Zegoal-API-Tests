@@ -19,7 +19,7 @@ public class ClientExternalService extends BaseService {
     private final static String CLIENT_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_client/list_update/";
     private final static String CLIENT_GET_EXTERNAL_ENDPOINT = "/api/external/client/";
 
-    public List<PatchClientExternal> getPatchClientExternal(Auth auth) {
+    public List<PatchClientExternal> getPatchClientExternal() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -43,7 +43,7 @@ public class ClientExternalService extends BaseService {
     }
 
 
-    public GetClientExternal getGetTClientExternal(Auth auth) {
+    public GetClientExternal getGetTClientExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -57,7 +57,7 @@ public class ClientExternalService extends BaseService {
                 .as(GetClientExternal.class);
     }
 
-    public List<PatchClientExternal> getPatchClientExternalForProd(Auth auth) {
+    public List<PatchClientExternal> getPatchClientExternalForProd() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -80,7 +80,7 @@ public class ClientExternalService extends BaseService {
                 new ClientRequestForPatchExternal(2, true));
     }
 
-    public GetClientExternal getGetTClientExternalForProd(Auth auth) {
+    public GetClientExternal getGetTClientExternalForProd() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

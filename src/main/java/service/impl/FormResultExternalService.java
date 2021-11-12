@@ -11,7 +11,7 @@ public class FormResultExternalService extends BaseService {
 
     private final static String ASSET_PATCH_EXTERNAL_ENDPOINT = "/api/external/form_result/";
 
-    public GetFormResultExternal getGetFormResultExternal(Auth auth) {
+    public GetFormResultExternal getGetFormResultExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
@@ -26,7 +26,7 @@ public class FormResultExternalService extends BaseService {
     }
 
 
-    public GetFormResultExternal getGetFormResultExternalForProd(Auth auth) {
+    public GetFormResultExternal getGetFormResultExternalForProd() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

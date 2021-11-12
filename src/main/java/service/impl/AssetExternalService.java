@@ -19,7 +19,7 @@ public class AssetExternalService extends BaseService {
     private final static String ASSET_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_asset/list_update/";
     private final static String ASSET_GET_EXTERNAL_ENDPOINT = "/api/external/asset/";
 
-    public List<PatchAssetExternal> getPatchAssetExternal(Auth auth) {
+    public List<PatchAssetExternal> getPatchAssetExternal() {
 
         JsonPath jsonPath = given()
                 .contentType(ContentType.JSON)
@@ -42,7 +42,7 @@ public class AssetExternalService extends BaseService {
                 new AssetRequestForPatchExternal(4, true));
     }
 
-    public GetAssetExternal getGetAssetExternal(Auth auth) {
+    public GetAssetExternal getGetAssetExternal() {
         return given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())

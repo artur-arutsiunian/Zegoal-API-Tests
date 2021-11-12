@@ -3,6 +3,7 @@ package rest;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
+import rest.tests.BaseTest;
 import rest.tests.asset.AssetTest;
 import rest.tests.client.ClientTest;
 import rest.tests.comment.CommentTest;

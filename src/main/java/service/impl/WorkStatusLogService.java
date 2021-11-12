@@ -18,7 +18,7 @@ public class WorkStatusLogService extends BaseService {
     private final static String WORK_STATUS_LOG_CREATE_ENDPOINT= "/api/v1/log/work_status/";
     private final static String WORK_STATUS_LOG_GET_ENDPOINT= "/api/v1/log/work_status/";
 
-    public PostWorkStatusLog getCreateWorkStatusLog(Token token) {
+    public PostWorkStatusLog getCreateWorkStatusLog() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -40,7 +40,7 @@ public class WorkStatusLogService extends BaseService {
                 new WorkStatusLogRequest(1, "990000862471854", 28 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
     }
 
-    public GetWorkStatusLog getGetWorkStatusLog(Token token) {
+    public GetWorkStatusLog getGetWorkStatusLog() {
 
         return given()
                 .contentType(ContentType.JSON)

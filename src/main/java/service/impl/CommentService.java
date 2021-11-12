@@ -15,7 +15,7 @@ public class CommentService extends BaseService {
     private final static String COMMENT_CREATE_ENDPOINT = "/api/v1/task_comment/";
     private final static String COMMENT_GET_ENDPOINT = "/api/v1/task_comment/";
 
-    public PostComment getCreateComment(Token token) {
+    public PostComment getCreateComment() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -37,7 +37,7 @@ public class CommentService extends BaseService {
                 new CommentRequest("ppll", 1);
     }
 
-    public GetComment getGetComment(Token token) {
+    public GetComment getGetComment() {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -52,11 +52,11 @@ public class CommentService extends BaseService {
                 .as(GetComment.class);
     }
 
-    public PostComment getCreateCommentForProd(Token tokenProd) {
+    public PostComment getCreateCommentForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateCommentForProd())
                 .post(url + COMMENT_CREATE_ENDPOINT)
@@ -74,11 +74,11 @@ public class CommentService extends BaseService {
                 new CommentRequest("ppll", 1);
     }
 
-    public GetComment getGetCommentForProd(Token tokenProd) {
+    public GetComment getGetCommentForProd() {
 
         return given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(url + COMMENT_GET_ENDPOINT)
                 .then()
