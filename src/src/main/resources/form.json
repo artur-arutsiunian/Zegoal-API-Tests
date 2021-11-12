@@ -1,0 +1,16 @@
+{
+  "name": "nou1",
+  "type": 1,
+  "form_groups": [
+    {
+      "name": "group_1",
+      "group_fields": [
+        {
+          "name": "field_image",
+          "sort": 1,
+          "type": 7
+        }
+      ]
+    }
+  ]
+}
