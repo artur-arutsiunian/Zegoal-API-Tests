@@ -17,6 +17,6 @@ import rest.tests.token.TokenTest;
 import rest.tests.user.UserTest;
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses({/*BaseTest.class,*/ ClientTest.class, /*LocationTest.class, TaskTest.class, TokenTest.class, UserTest.class, AssetTest.class, ContactTest.class,*/ FormTest.class /*ScheduleTest.class, CommentNotificationTest.class, CommentTest.class*/})
+//@SelectClasses({/*BaseTest.class,*/ ClientTest.class, /*LocationTest.class, TaskTest.class, TokenTest.class, UserTest.class, AssetTest.class, ContactTest.class,*/ FormTest.class /*ScheduleTest.class, CommentNotificationTest.class, CommentTest.class*/})
 public class TestRunner {
 }
