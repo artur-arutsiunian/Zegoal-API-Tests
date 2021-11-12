@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class UserRequestPatch {
-    public PojoProfile profile;
+    public PojoProfilePatch profile;
 }

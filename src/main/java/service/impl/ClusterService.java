@@ -2,17 +2,11 @@ package service.impl;
 
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
-import rest.objects.client.ClientRequest;
-import rest.objects.client.MainLocationPojo;
-import rest.objects.client.get.GetClient;
-import rest.objects.client.post.PostClient;
 import rest.objects.cluster.ClusterRequest;
 import rest.objects.cluster.ClusterRequestPut;
 import rest.objects.cluster.get.GetCluster;
 import rest.objects.cluster.post.PostCluster;
 import rest.objects.cluster.put.PutCluster;
-import rest.objects.contact.ContactRequestPatch;
-import rest.objects.contact.patch.PatchContact;
 import rest.objects.token.Token;
 import service.BaseService;
 
@@ -23,7 +17,7 @@ import static io.restassured.RestAssured.given;
 public class ClusterService extends BaseService {
 
     private final static String CREATE_CLUSTER_ENDPOINT = "/api/v1/cluster/";
-    private final static String PUT_CLUSTER_ENDPOINT = "/api/v1/cluster/2/";
+    private final static String PUT_CLUSTER_ENDPOINT = "/api/v1/cluster/1/";
     private final static String GET_CLUSTER_ENDPOINT = "/api/v1/cluster/";
 
     public PostCluster getCreateCluster(Token token) {
@@ -33,7 +27,7 @@ public class ClusterService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateCluster())
-                .post(BASE_URL + CREATE_CLUSTER_ENDPOINT)
+                .post(url + CREATE_CLUSTER_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -55,7 +49,7 @@ public class ClusterService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPutCluster())
-                .patch(BASE_URL + PUT_CLUSTER_ENDPOINT)
+                .patch(url + PUT_CLUSTER_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -76,7 +70,66 @@ public class ClusterService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + GET_CLUSTER_ENDPOINT)
+                .get(url + GET_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetCluster.class);
+    }
+
+    public PostCluster getCreateClusterForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateClusterForProd())
+                .post(url + CREATE_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostCluster.class);
+    }
+
+    @SneakyThrows
+    private ClusterRequest initCreateClusterForProd(Object[]... field) {
+        return
+                new ClusterRequest("clus1", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+    }
+
+    public PutCluster getPutClusterForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPutClusterForProd())
+                .patch(url + PUT_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PutCluster.class);
+    }
+
+    @SneakyThrows
+    private ClusterRequestPut initPutClusterForProd(Object[]... field) {
+        return
+                new ClusterRequestPut("new", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+    }
+
+    public GetCluster getGetClusterForProd(Token token) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token.getAccessToken())
+                .when()
+                .get(url + GET_CLUSTER_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

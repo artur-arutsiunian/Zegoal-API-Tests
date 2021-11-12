@@ -17,4 +17,10 @@ public class TokenTest extends BaseTest {
         assertEquals(token.getScope(), "read write groups",
                 "Token is incorrect");
     }
+
+    @Test
+    public void checkReceiveTokenForProd(){
+        assertEquals(token.getScope(), "read write groups",
+                "Token is incorrect");
+    }
 }

@@ -26,7 +26,7 @@ public class ClientExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .body(initPatchClient())
-                .patch(BASE_URL + CLIENT_PATCH_EXTERNAL_ENDPOINT)
+                .patch(url + CLIENT_PATCH_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -48,7 +48,44 @@ public class ClientExternalService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
-                .get(BASE_URL + CLIENT_GET_EXTERNAL_ENDPOINT)
+                .get(url + CLIENT_GET_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetClientExternal.class);
+    }
+
+    public List<PatchClientExternal> getPatchClientExternalForProd(Auth auth) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                .when()
+                .body(initPatchClientForProd())
+                .patch(url + CLIENT_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchClientExternal.class);
+    }
+
+    @SneakyThrows
+    private List<ClientRequestForPatchExternal> initPatchClientForProd(Object[]... field) {
+        return ImmutableList.of(
+                new ClientRequestForPatchExternal(1, true),
+                new ClientRequestForPatchExternal(2, true));
+    }
+
+    public GetClientExternal getGetTClientExternalForProd(Auth auth) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                .when()
+                .get(url + CLIENT_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

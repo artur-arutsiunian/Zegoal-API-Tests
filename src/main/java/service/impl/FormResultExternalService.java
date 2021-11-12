@@ -16,7 +16,22 @@ public class FormResultExternalService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
-                .get(BASE_URL + ASSET_PATCH_EXTERNAL_ENDPOINT)
+                .get(url + ASSET_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetFormResultExternal.class);
+    }
+
+
+    public GetFormResultExternal getGetFormResultExternalForProd(Auth auth) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                .when()
+                .get(url + ASSET_PATCH_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

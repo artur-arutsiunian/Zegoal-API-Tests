@@ -1,35 +1,32 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.asset.AssetRequest;
 import rest.objects.asset.AssetRequestPatch;
 import rest.objects.asset.get.GetAsset;
 import rest.objects.asset.patch.PatchAsset;
 import rest.objects.asset.post.PostAsset;
-import rest.objects.form.FormRequest;
 import rest.objects.token.Token;
 import service.BaseService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class AssetService extends BaseService {
 
     private final static String ASSET_CREATE_ENDPOINT = "/api/v1/asset/";
-    private final static String ASSET_PATCH_ENDPOINT = "/api/v1/asset/2/";
+    private final static String ASSET_PATCH_ENDPOINT = "/api/v1/asset/1/";
     private final static String ASSET_GET_ENDPOINT = "/api/v1/asset/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostAsset getCreateAsset(Token token) {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateAsset())
-                .post(BASE_URL + ASSET_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -59,7 +56,7 @@ public class AssetService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchAsset())
-                .patch(BASE_URL + ASSET_PATCH_ENDPOINT)
+                .patch(url + ASSET_PATCH_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -87,12 +84,28 @@ public class AssetService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + ASSET_GET_ENDPOINT)
+                .get(url + ASSET_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
                 .extract()
                 .as(GetAsset.class);
+    }
+
+    private class RequestBuilder {
+
+        private RequestSpecification requestSpec;
+
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/asset")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
+
+
     }
 }

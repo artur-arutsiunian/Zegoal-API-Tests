@@ -31,4 +31,22 @@ public class LocationTest extends BaseTest {
         assertEquals(service.getGetLocation(token).getCount(), 33,
                 "Quantity of locations aren't correct");
     }
+
+    @Test
+    public void checkCreateLocationForProd() {
+        assertEquals(service.getCreateLocationForProd(token).getRawAddress(), "проспект Дзержинского, 73А",
+                "Location raw address is incorrect");
+    }
+
+    @Test
+    public void checkPatchLocationForProd() {
+        assertEquals(service.getPatchLocationForProd(token).getRawAddress(), "mm1",
+                "Location isn't update");
+    }
+
+    @Test
+    public void checkGetLocationForProd() {
+        assertEquals(service.getGetLocationForProd(token).getCount(), 8,
+                "Quantity of locations aren't correct");
+    }
 }

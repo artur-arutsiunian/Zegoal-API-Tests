@@ -17,7 +17,19 @@ public class CommentNotificationTest extends BaseTest {
 
     @Test
     public void checkGetCommentNotification(){
-        assertEquals(service.getGetCommentNotification(token).getCount(), 1,
+        assertEquals(service.getGetCommentNotification(token).getCount(), 2,
+                "Quantity of CommentNotification aren't correct");
+    }
+
+    @Test
+    public void checkCreateCommentNotificationForProd(){
+        assertEquals(service.getCreateCommentNotificationForProd(token).getComment(), 1,
+                "Comment notification isn't created");
+    }
+
+    @Test
+    public void checkGetCommentNotificationForProd(){
+        assertEquals(service.getGetCommentNotificationForProd(token).getCount(), 1,
                 "Quantity of CommentNotification aren't correct");
     }
 }

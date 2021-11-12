@@ -1,5 +1,6 @@
 package rest.tests.schedule;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.ScheduleService;
@@ -27,5 +28,24 @@ public class ScheduleTest extends BaseTest {
                 "Quantity of schedule aren't correct");
     }
 
+    @Order(1)
+    @Test
+    public void checkCreateScheduleForProd(){
+        assertEquals(service.getCreateScheduleForProd(token).getCount(), 2,
+                "Schedule isn't created");
+    }
 
+    @Order(2)
+    @Test
+    public void checkPutScheduleFprProd(){
+        assertEquals(service.getPutScheduleForProd(token).getStartDatetime(), "2021-11-14T11:10:00",
+                "Schedule isn't updated");
+    }
+
+    @Order(3)
+    @Test
+    public void checkGetScheduleForProd(){
+        assertEquals(service.getGetScheduleForProd(token).getCount(), 3,
+                "Quantity of schedule aren't correct");
+    }
 }

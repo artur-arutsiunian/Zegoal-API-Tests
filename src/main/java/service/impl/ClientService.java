@@ -9,31 +9,16 @@ import rest.objects.client.MainLocationPojo;
 import rest.objects.client.get.GetClient;
 import rest.objects.client.patch.PatchClient;
 import rest.objects.client.post.PostClient;
-import rest.objects.form.FormFieldRequest;
-import rest.objects.form.FormGroupRequest;
-import rest.objects.form.FormRequest;
 import rest.objects.token.Token;
 import service.BaseService;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class ClientService extends BaseService {
 
     private final static String CLIENT_CREATE_ENDPOINT = "/api/v1/client/";
-    private final static String CLIENT_PATCH_ENDPOINT = "/api/v1/client/3/";
+    private final static String CLIENT_PATCH_ENDPOINT = "/api/v1/client/2/";
     private final static String CLIENT_GET_ENDPOINT = "/api/v1/client/";
-
-    /**
-     * Static method which allows us to log request and response data
-     * @see RestAssured#filters(Filter, Filter...)
-     */
-//    static {
-//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-//    }
 
     public PostClient getCreateClient(Token token) {
 
@@ -42,7 +27,7 @@ public class ClientService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateClient())
-                .post(BASE_URL + CLIENT_CREATE_ENDPOINT)
+                .post(url + CLIENT_CREATE_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -75,7 +60,7 @@ public class ClientService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchClient())
-                .patch(BASE_URL + CLIENT_PATCH_ENDPOINT)
+                .patch(url + CLIENT_PATCH_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -103,7 +88,66 @@ public class ClientService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + CLIENT_GET_ENDPOINT)
+                .get(url + CLIENT_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetClient.class);
+    }
+
+    public PostClient getCreateClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateClientForProd())
+                .post(url + CLIENT_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostClient.class);
+    }
+
+    @SneakyThrows
+    private ClientRequest initCreateClientForProd(Object[]... field) {
+        return
+                new ClientRequest("client name98", new MainLocationPojo("main loc"));
+    }
+
+    public PatchClient getPatchClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchClientForProd())
+                .patch(url + CLIENT_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchClient.class);
+    }
+
+    @SneakyThrows
+    private ClientRequest initPatchClientForProd(Object[]... field) {
+        return
+                new ClientRequest("client name");
+    }
+
+    public GetClient getGetClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(url + CLIENT_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

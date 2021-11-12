@@ -2,7 +2,6 @@ package service.impl;
 
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
-import rest.objects.form.FormRequest;
 import rest.objects.task.TaskRequest;
 import rest.objects.task.TaskRequestPatch;
 import rest.objects.task.get.GetTask;
@@ -10,9 +9,6 @@ import rest.objects.task.patch.PatchTask;
 import rest.objects.task.post.CreateTask;
 import rest.objects.token.Token;
 import service.BaseService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -28,7 +24,7 @@ public class TaskService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initTask())
-                .post(BASE_URL + TASK_CREATE_ENDPOINT)
+                .post(url + TASK_CREATE_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -64,7 +60,7 @@ public class TaskService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchTask())
-                .patch(BASE_URL + TASK_PATCH_ENDPOINT)
+                .patch(url + TASK_PATCH_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -92,7 +88,7 @@ public class TaskService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + TASK_GET_ENDPOINT)
+                .get(url + TASK_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

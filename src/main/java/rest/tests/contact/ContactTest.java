@@ -29,4 +29,22 @@ public class ContactTest extends BaseTest {
         assertEquals(service.getGetContact(token).getCount(), 4,
                 "Quantity of contacts aren't correct");
     }
+
+    @Test
+    public void checkCreateContactForProd(){
+        assertEquals(service.getCreateContactForProd(token).getFullName(), "BRAD7",
+                "Contact name is incorrect");
+    }
+
+    @Test
+    public void checkPatchContactForProd(){
+        assertEquals(service.getPatchContactForProd(token).getEmail(), "br9@mail.com",
+                "Contact isn't updated");
+    }
+
+    @Test
+    public void checkGetContactForProd(){
+        assertEquals(service.getGetContactForProd(token).getCount(), 4,
+                "Quantity of contacts aren't correct");
+    }
 }

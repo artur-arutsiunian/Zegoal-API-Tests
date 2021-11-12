@@ -39,7 +39,7 @@ public class LocationService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateLocation())
-                .post(BASE_URL + LOCATION_CREATE_ENDPOINT)
+                .post(url + LOCATION_CREATE_ENDPOINT)
                 .then().assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(201)
@@ -75,7 +75,7 @@ public class LocationService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchLocation())
-                .patch(BASE_URL + LOCATION_PATCH_ENDPOINT)
+                .patch(url + LOCATION_PATCH_ENDPOINT)
                 .then().assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -103,7 +103,64 @@ public class LocationService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + LOCATION_GET_ENDPOINT)
+                .get(url + LOCATION_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetLocation.class);
+    }
+
+    public PostLocation getCreateLocationForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateLocationForProd())
+                .post(url + LOCATION_CREATE_ENDPOINT)
+                .then().assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostLocation.class);
+    }
+
+    @SneakyThrows
+    private LocationRequest initCreateLocationForProd(Object[]... field) {
+        return
+                new LocationRequest(1, new PointPojo("Point", List.of(27,53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
+    }
+
+    public PatchLocation getPatchLocationForProd(Token tokenProd){
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchLocationForProd())
+                .patch(url + LOCATION_PATCH_ENDPOINT)
+                .then().assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchLocation.class);
+    }
+
+    @SneakyThrows
+    private LocationRequestForPatch initPatchLocationForProd(Object[]... field) {
+        return
+                new LocationRequestForPatch(1,"mm1");
+    }
+
+    public GetLocation getGetLocationForProd(Token tokenProd){
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(url + LOCATION_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

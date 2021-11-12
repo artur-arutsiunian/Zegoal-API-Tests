@@ -2,13 +2,9 @@ package service.impl;
 
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
-import rest.objects.asset.post.PostAsset;
-import rest.objects.comment.post.PostComment;
 import rest.objects.commentNotification.CommentNotificationRequest;
 import rest.objects.commentNotification.get.GetCommentNotification;
 import rest.objects.commentNotification.post.PostCommentNotification;
-import rest.objects.form.FormRequest;
-import rest.objects.form.get.GetForm;
 import rest.objects.token.Token;
 import service.BaseService;
 
@@ -26,7 +22,7 @@ public class CommentNotificationService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCommentNotification())
-                .post(BASE_URL + CREATE_COMMENT_NOTIFICATION_ENDPOINT)
+                .post(url + CREATE_COMMENT_NOTIFICATION_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -47,7 +43,44 @@ public class CommentNotificationService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + GET_COMMENT_NOTIFICATION_ENDPOINT)
+                .get(url + GET_COMMENT_NOTIFICATION_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetCommentNotification.class);
+    }
+
+    public PostCommentNotification getCreateCommentNotificationForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCommentNotificationForProd())
+                .post(url + CREATE_COMMENT_NOTIFICATION_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostCommentNotification.class);
+    }
+
+    @SneakyThrows
+    private CommentNotificationRequest initCommentNotificationForProd(Object[]... field) {
+        return
+                new CommentNotificationRequest(1);
+    }
+
+    public GetCommentNotification getGetCommentNotificationForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(url + GET_COMMENT_NOTIFICATION_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

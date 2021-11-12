@@ -2,9 +2,6 @@ package service.impl;
 
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
-import rest.objects.asset.post.PostAsset;
-import rest.objects.form.FormRequest;
-import rest.objects.form.get.GetForm;
 import rest.objects.token.Token;
 import rest.objects.workStatusLog.PointPojoForLog;
 import rest.objects.workStatusLog.WorkStatusLogRequest;
@@ -28,7 +25,7 @@ public class WorkStatusLogService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateWorkStatusLog())
-                .post(BASE_URL + WORK_STATUS_LOG_CREATE_ENDPOINT)
+                .post(url + WORK_STATUS_LOG_CREATE_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -49,7 +46,7 @@ public class WorkStatusLogService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + WORK_STATUS_LOG_GET_ENDPOINT)
+                .get(url + WORK_STATUS_LOG_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

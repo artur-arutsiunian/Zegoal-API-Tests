@@ -2,11 +2,6 @@ package service.impl;
 
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
-import rest.objects.contact.ContactRequest;
-import rest.objects.contact.ContactRequestPatch;
-import rest.objects.contact.get.GetContact;
-import rest.objects.contact.patch.PatchContact;
-import rest.objects.contact.post.PostContact;
 import rest.objects.epic.EpicRequest;
 import rest.objects.epic.EpicRequestPatch;
 import rest.objects.epic.get.GetEpic;
@@ -22,7 +17,7 @@ import static io.restassured.RestAssured.given;
 public class EpicService extends BaseService {
 
     private final static String EPIC_CREATE_ENDPOINT= "/api/v1/epic/";
-    private final static String EPIC_PATCH_ENDPOINT= "/api/v1/epic/3/";
+    private final static String EPIC_PATCH_ENDPOINT= "/api/v1/epic/2/";
     private final static String EPIC_GET_ENDPOINT= "/api/v1/epic/";
 
     public PostEpic getCreateEpic(Token token) {
@@ -32,7 +27,7 @@ public class EpicService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateEpic())
-                .post(BASE_URL + EPIC_CREATE_ENDPOINT)
+                .post(url + EPIC_CREATE_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -54,7 +49,7 @@ public class EpicService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchEpic())
-                .patch(BASE_URL + EPIC_PATCH_ENDPOINT)
+                .patch(url + EPIC_PATCH_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -75,7 +70,66 @@ public class EpicService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + EPIC_GET_ENDPOINT)
+                .get(url + EPIC_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetEpic.class);
+    }
+
+    public PostEpic getCreateEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateEpicForProd())
+                .post(url + EPIC_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostEpic.class);
+    }
+
+    @SneakyThrows
+    private EpicRequest initCreateEpicForProd(Object[]... field) {
+        return
+                new EpicRequest("2021-11-13T21:00:00", "2021-11-14T21:00:00", "new epic2", List.of(4));
+    }
+
+    public PatchEpic getPatchEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchEpicForProd())
+                .patch(url + EPIC_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchEpic.class);
+    }
+
+    @SneakyThrows
+    private EpicRequestPatch initPatchEpicForProd(Object[]... field) {
+        return
+                new EpicRequestPatch("2021-11-12");
+    }
+
+    public GetEpic getGetEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(url + EPIC_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

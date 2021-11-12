@@ -5,8 +5,6 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import lombok.SneakyThrows;
 import rest.objects.settings.SettingsRequest;
-import rest.objects.settings.get.GetSettings;
-import rest.objects.settings.patch.PatchSetting;
 import rest.objects.token.Token;
 import rest.objects.userSettings.get.GetUserSettings;
 import rest.objects.userSettings.patch.PatchUserSetting;
@@ -28,7 +26,7 @@ public class UserSettingsService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchUserSetting())
-                .patch(BASE_URL + PATCH_USER_SETTINGS_ENDPOINT)
+                .patch(url + PATCH_USER_SETTINGS_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -49,7 +47,7 @@ public class UserSettingsService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + GET_USER_SETTINGS_ENDPOINT)
+                .get(url + GET_USER_SETTINGS_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

@@ -16,7 +16,7 @@ public class FormExternalService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
-                .get(BASE_URL + FORM_GET_EXTERNAL_ENDPOINT)
+                .get(url + FORM_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -24,4 +24,18 @@ public class FormExternalService extends BaseService {
                 .extract()
                 .as(GetFormExternal.class);
     }
+
+        public GetFormExternal getGetFormExternalForProd(Auth auth) {
+            return given()
+                    .contentType(ContentType.JSON)
+                    .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                    .when()
+                    .get(url + FORM_GET_EXTERNAL_ENDPOINT)
+                    .then()
+                    .assertThat()
+                    .contentType(ContentType.JSON)
+                    .statusCode(200)
+                    .extract()
+                    .as(GetFormExternal.class);
+        }
 }

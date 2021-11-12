@@ -26,4 +26,22 @@ public class LocationExternalTest extends BaseTest {
         assertEquals(service.getGetTLocationExternal(auth).getCount(), 31,
                 "Quantity of locations aren't correct");
     }
+
+    @Test
+    public void checkCreateLocationExternalForProd(){
+        assertEquals(service.getCreateLocationExternalForProd(auth).getLocationCount(), 2,
+                "Location count aren't correct");
+    }
+
+    @Test
+    public void checkPatchLocationExternalForProd(){ //тоже как и patch user есть проблема с репликой, если установить везде false - в админке меняет, а ответ приходит как будто не верный
+        assertEquals(service.getPatchLocationExternalForProd(auth).get(0).getIsExist(), true,
+                "Locations aren't updated");
+    }
+
+    @Test
+    public void checkGetLocationExternalForProd(){
+        assertEquals(service.getGetTLocationExternalForProd(auth).getCount(), 7,
+                "Quantity of locations aren't correct");
+    }
 }

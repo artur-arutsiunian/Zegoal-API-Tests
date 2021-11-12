@@ -8,6 +8,7 @@ import rest.objects.token.Token;
 import rest.objects.user.PojoProfile;
 import rest.objects.user.PojoProfilePatch;
 import rest.objects.user.UserRequest;
+import rest.objects.user.UserRequestPatch;
 import rest.objects.user.get.GetUser;
 import rest.objects.user.patch.Profile;
 import rest.objects.user.post.CreateUser;
@@ -38,7 +39,7 @@ public class UserService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateUser())
-                .post(BASE_URL + USER_CREATE_ENDPOINT)
+                .post(url + USER_CREATE_ENDPOINT)
                 .then().assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(201)
@@ -75,7 +76,7 @@ public class UserService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPatchUser())
-                .patch(BASE_URL + USER_PATCH_ENDPOINT)
+                .patch(url + USER_PATCH_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -86,9 +87,9 @@ public class UserService extends BaseService {
     }
 
     @SneakyThrows
-    private PojoProfilePatch initPatchUser(Object[]... field) {
+    private UserRequestPatch initPatchUser(Object[]... field) {
         return
-                new PojoProfilePatch("User22");
+                new UserRequestPatch( new PojoProfilePatch("User22"));
     }
 
 //    private Map<String, Object> initPatchUser(String first_name) {
@@ -103,7 +104,7 @@ public class UserService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + USER_GET_ENDPOINT)
+                .get(url + USER_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

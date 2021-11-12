@@ -26,4 +26,22 @@ public class EpicTest extends BaseTest {
         assertEquals(service.getGetEpic(token).getCount(), 4,
                 "Quantity of epics aren't correct");
     }
+
+    @Test
+    public void checkCreateEpicForProd(){
+        assertEquals(service.getCreateEpicForProd(token).getName(), "new epic2",
+                "Epic isn't created");
+    }
+
+    @Test
+    public void checkPatchEpicForProd(){
+        assertEquals(service.getPatchEpicForProd(token).getPlannedStartAt(), "2021-11-12T00:00:00",
+                "Epic isn't updated");
+    }
+
+    @Test
+    public void checkGetEpicForProd(){
+        assertEquals(service.getGetEpicForProd(token).getCount(), 5,
+                "Quantity of epics aren't correct");
+    }
 }

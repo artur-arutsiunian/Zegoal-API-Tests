@@ -27,7 +27,7 @@ public class ScheduleService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initCreateSchedule())
-                .post(BASE_URL + SCHEDULE_CREATE_ENDPOINT)
+                .post(url + SCHEDULE_CREATE_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -50,7 +50,7 @@ public class ScheduleService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .body(initPutSchedule())
-                .put(BASE_URL + SCHEDULE_PUT_ENDPOINT)
+                .put(url + SCHEDULE_PUT_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -71,7 +71,7 @@ public class ScheduleService extends BaseService {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
-                .get(BASE_URL + SCHEDULE_GET_ENDPOINT)
+                .get(url + SCHEDULE_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -79,5 +79,66 @@ public class ScheduleService extends BaseService {
                 .extract()
                 .as(GetSchedule.class);
     }
+
+    public PostSchedule getCreateScheduleForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateScheduleForProd())
+                .post(url + SCHEDULE_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostSchedule.class);
+    }
+
+    @SneakyThrows
+    private List<ScheduleRequest> initCreateScheduleForProd(Object[]... field) {
+        return ImmutableList.of(
+                new ScheduleRequest("8f0690fd-5dd5-4789-9131-290a7caa2fb7", 0, "2021-11-12 11:10", "2021-12-13 18:10", false),
+                new ScheduleRequest("8f0690fd-5dd5-4789-9131-290a7caa2fb7", 0, "2021-11-15 8:10", "2021-11-16 17:10", false));
+    }
+
+    public PutSchedule getPutScheduleForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPutScheduleForProd())
+                .put(url + SCHEDULE_PUT_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PutSchedule.class);
+    }
+
+    @SneakyThrows
+    private ScheduleRequest initPutScheduleForProd(Object[]... field) {
+        return (
+                new ScheduleRequest("6969fc50-7be2-4f69-8bca-26090581789c", 0, "2021-11-14 11:10", "2021-11-15 18:10", false));
+    }
+
+    public GetSchedule getGetScheduleForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(url + SCHEDULE_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetSchedule.class);
+    }
+
 }
 
