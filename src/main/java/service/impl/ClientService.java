@@ -1,8 +1,10 @@
 package service.impl;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.Filter;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.client.ClientRequest;
 import rest.objects.client.MainLocationPojo;
@@ -20,14 +22,14 @@ public class ClientService extends BaseService {
     private final static String CLIENT_PATCH_ENDPOINT = "/api/v1/client/2/";
     private final static String CLIENT_GET_ENDPOINT = "/api/v1/client/";
 
+    private final ClientService.RequestBuilder requestBuilder = new ClientService.RequestBuilder();
+
     public PostClient getCreateClient() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateClient())
-                .post(url + CLIENT_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -39,7 +41,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initCreateClient(Object[]... field) {
         return
-                new ClientRequest("client name98", new MainLocationPojo("main loc"));
+                new ClientRequest("client ou", new MainLocationPojo("main loc"));
     }
 
 //    private Map<String, Object> initCreateClient(String name, String name1) {
@@ -55,12 +57,10 @@ public class ClientService extends BaseService {
 
     public PatchClient getPatchClient() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchClient())
-                .patch(url + CLIENT_PATCH_ENDPOINT)
+                .patch("3/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -72,7 +72,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initPatchClient(Object[]... field) {
         return
-                new ClientRequest("client name");
+                new ClientRequest("client 5");
     }
 
 //    private Map<String, Object> initPatchClient(String name) {
@@ -84,11 +84,9 @@ public class ClientService extends BaseService {
 
     public GetClient getGetClient() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + CLIENT_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -97,62 +95,17 @@ public class ClientService extends BaseService {
                 .as(GetClient.class);
     }
 
-    public PostClient getCreateClientForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateClientForProd())
-                .post(url + CLIENT_CREATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostClient.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private ClientRequest initCreateClientForProd(Object[]... field) {
-        return
-                new ClientRequest("client name98", new MainLocationPojo("main loc"));
-    }
-
-    public PatchClient getPatchClientForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPatchClientForProd())
-                .patch(url + CLIENT_PATCH_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PatchClient.class);
-    }
-
-    @SneakyThrows
-    private ClientRequest initPatchClientForProd(Object[]... field) {
-        return
-                new ClientRequest("client name");
-    }
-
-    public GetClient getGetClientForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + CLIENT_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetClient.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/client")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

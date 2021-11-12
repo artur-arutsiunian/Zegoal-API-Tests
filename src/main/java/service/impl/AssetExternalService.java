@@ -1,8 +1,10 @@
 package service.impl;
 
 import com.google.common.collect.ImmutableList;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.asset.AssetRequestForPatchExternal;
 import rest.objects.asset.get.external.GetAssetExternal;

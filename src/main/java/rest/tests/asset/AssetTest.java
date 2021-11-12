@@ -24,13 +24,13 @@ public class AssetTest extends BaseTest {
 
     @Test
     public void checkPatchAsset() {
-        assertEquals(service.getPatchAsset().getLocation(), 8,
+        assertEquals(service.PatchAsset().getLocation(), 3,
                 "Asset isn't updated");
     }
 
     @Test
     public void checkGetAsset() {
-        assertEquals(service.getAsset().getCount(), 9,
+        assertEquals(service.getAsset().getCount(), 4,
                 "Quantity of assets aren't correct");
     }
 }

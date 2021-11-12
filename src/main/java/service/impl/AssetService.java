@@ -44,7 +44,7 @@ public class AssetService extends BaseService {
 //        return body;
 //    }
 
-    public PatchAsset getPatchAsset() {
+    public PatchAsset PatchAsset() {
 
         return given(requestBuilder.requestSpec)
                 .when()
@@ -61,7 +61,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequestPatch initPatchAsset(Object[]... field) {
         return
-                new AssetRequestPatch(8);
+                new AssetRequestPatch(3);
     }
 
 //    private Map<String, Object> initPatchAsset(int location) {
