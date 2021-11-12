@@ -8,7 +8,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import rest.objects.asset.post.PostAsset;
 import rest.objects.form.FormRequest;
 import rest.objects.token.Token;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.FormService;
 
 import static io.restassured.RestAssured.given;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Execution(ExecutionMode.CONCURRENT)
 
 
-public class FormTest extends BaseTest {
+public class FormTest extends BaseService {
 
     private FormService service = new FormService();
     private boolean isCheckCreateForm = false;

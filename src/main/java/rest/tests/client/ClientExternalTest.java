@@ -2,11 +2,11 @@ package rest.tests.client;
 
 import org.junit.jupiter.api.Test;
 import rest.objects.client.ClientRequestForPatchExternal;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ClientExternalService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ClientExternalTest extends BaseTest {
+public class ClientExternalTest extends BaseService {
 
     ClientExternalService service = new ClientExternalService();
 

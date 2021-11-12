@@ -3,12 +3,12 @@ package rest.tests.contact;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ContactService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ContactTest extends BaseTest {
+public class ContactTest extends BaseService {
 
     private ContactService service = new ContactService();
 

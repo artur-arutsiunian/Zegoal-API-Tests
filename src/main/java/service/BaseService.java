@@ -8,13 +8,14 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
+import rest.TestRunner;
 import rest.objects.apikey.ApiKey;
 import rest.objects.token.Auth;
 import rest.objects.token.Token;
 import service.impl.AuthService;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class BaseService {
+public abstract class BaseService extends TestRunner {
 
     protected Auth auth;
     protected Token token;

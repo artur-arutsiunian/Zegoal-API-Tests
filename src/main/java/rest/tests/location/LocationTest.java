@@ -3,14 +3,14 @@ package rest.tests.location;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.LocationService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LocationTest extends BaseTest {
+public class LocationTest extends BaseService {
 
     private LocationService service = new LocationService();
 

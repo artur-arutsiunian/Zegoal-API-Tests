@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ClientService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Execution(ExecutionMode.CONCURRENT)
 
-public class ClientTest extends BaseTest {
+public class ClientTest extends BaseService {
 
     private ClientService service = new ClientService();
 

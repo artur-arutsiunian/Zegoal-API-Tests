@@ -1,12 +1,12 @@
 package rest.tests.form;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.FormExternalService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FormExternalTest extends BaseTest {
+public class FormExternalTest extends BaseService {
 
     FormExternalService service = new FormExternalService();
 

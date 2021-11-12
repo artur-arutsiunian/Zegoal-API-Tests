@@ -1,11 +1,11 @@
 package rest.tests.settings;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.SettingsService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SettingsTest extends BaseTest {
+public class SettingsTest extends BaseService {
 
     private SettingsService service = new SettingsService();
 

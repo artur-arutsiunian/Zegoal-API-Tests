@@ -1,11 +1,11 @@
 package rest.tests.location;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.LocationExternalService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LocationExternalTest extends BaseTest {
+public class LocationExternalTest extends BaseService {
 
     LocationExternalService service = new LocationExternalService();
 

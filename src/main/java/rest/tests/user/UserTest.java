@@ -3,14 +3,14 @@ package rest.tests.user;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserTest extends BaseTest {
+public class UserTest extends BaseService {
 
     private UserService service = new UserService();
 

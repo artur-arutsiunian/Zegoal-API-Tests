@@ -1,11 +1,11 @@
 package rest.tests.commentNotification;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.CommentNotificationService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommentNotificationTest extends BaseTest {
+public class CommentNotificationTest extends BaseService {
 
     CommentNotificationService service = new CommentNotificationService();
 

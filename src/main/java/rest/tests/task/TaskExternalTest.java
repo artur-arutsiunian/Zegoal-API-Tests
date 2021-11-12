@@ -1,11 +1,11 @@
 package rest.tests.task;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.TaskExternalService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TaskExternalTest extends BaseTest {
+public class TaskExternalTest extends BaseService {
 
     TaskExternalService service = new TaskExternalService();
 

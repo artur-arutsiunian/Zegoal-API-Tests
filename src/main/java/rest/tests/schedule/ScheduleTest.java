@@ -2,11 +2,11 @@ package rest.tests.schedule;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ScheduleService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ScheduleTest extends BaseTest {
+public class ScheduleTest extends BaseService {
 
     private ScheduleService service = new ScheduleService();
 

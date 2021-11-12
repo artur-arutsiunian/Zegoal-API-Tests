@@ -1,11 +1,11 @@
 package rest.tests.workStatusLog;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.WorkStatusLogService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WorkStatusLogTest extends BaseTest {
+public class WorkStatusLogTest extends BaseService {
 
     WorkStatusLogService service = new WorkStatusLogService();
 

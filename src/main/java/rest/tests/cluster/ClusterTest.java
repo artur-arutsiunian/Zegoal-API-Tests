@@ -2,11 +2,11 @@ package rest.tests.cluster;
 
 import org.junit.jupiter.api.Test;
 import rest.objects.cluster.ClusterRequest;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ClusterService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ClusterTest extends BaseTest {
+public class ClusterTest extends BaseService {
 
     ClusterService service = new ClusterService();
 

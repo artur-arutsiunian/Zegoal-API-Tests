@@ -1,12 +1,12 @@
 package rest.tests.contact;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.ContactExternalService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ContactExternalTest extends BaseTest {
+public class ContactExternalTest extends BaseService {
 
     ContactExternalService service = new ContactExternalService();
 

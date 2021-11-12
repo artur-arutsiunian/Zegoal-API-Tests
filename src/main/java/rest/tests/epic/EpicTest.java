@@ -1,11 +1,11 @@
 package rest.tests.epic;
 
 import org.junit.jupiter.api.Test;
-import rest.tests.BaseTest;
+import service.BaseService;
 import service.impl.EpicService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EpicTest extends BaseTest {
+public class EpicTest extends BaseService {
 
     EpicService service = new EpicService();
 
