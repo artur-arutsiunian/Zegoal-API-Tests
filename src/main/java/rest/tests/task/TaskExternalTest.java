@@ -11,13 +11,25 @@ public class TaskExternalTest extends BaseTest {
 
     @Test
     public void checkCreateExternalTask(){
-        assertEquals(service.getCreateTaskExternal(auth).getTaskCount(), 1,
+        assertEquals(service.getCreateTaskExternal(auth).getTaskCount(), 7,
                 "User id is incorrect");
     }
 
     @Test
     public void checkGetExternalTask(){
         assertEquals(service.getGetTaskExternal(auth).getCount(), 27,
+                "Quantity of tasks are incorrect");
+    }
+
+    @Test
+    public void checkCreateExternalTaskForProd(){
+        assertEquals(service.getCreateTaskExternalForProd(authProd).getTaskCount(), 1,
+                "User id is incorrect");
+    }
+
+    @Test
+    public void checkGetExternalTaskForProd(){
+        assertEquals(service.getGetTaskExternalForProd(authProd).getCount(), 7,
                 "Quantity of tasks are incorrect");
     }
 }

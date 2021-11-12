@@ -57,4 +57,41 @@ public class WorkStatusLogService extends BaseService {
                 .extract()
                 .as(GetWorkStatusLog.class);
     }
+
+    public PostWorkStatusLog getCreateWorkStatusLogForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateWorkStatusLogForProd())
+                .post(BASE_URL_FOR_PROD + WORK_STATUS_LOG_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostWorkStatusLog.class);
+    }
+
+    @SneakyThrows
+    private WorkStatusLogRequest initCreateWorkStatusLogForProd(Object[]... field) {
+        return
+                new WorkStatusLogRequest(1, "990000862471854", 9 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
+    }
+
+    public GetWorkStatusLog getGetWorkStatusLogForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + WORK_STATUS_LOG_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetWorkStatusLog.class);
+    }
 }

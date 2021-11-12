@@ -21,4 +21,16 @@ public class ContactExternalTest extends BaseTest {
         assertEquals(service.getGetContactExternal(auth).getCount(), 5,
                 "Quantity of contacts aren't correct");
     }
+
+    @Test
+    public void checkPatchContactExternalForProd(){ //тоже как и patch user есть проблема с репликой, если установить везде false - в админке меняет, а ответ приходит как будто не верный
+        assertEquals(service.getPatchContactExternalForProd(authProd).get(0).getIsExist(), true,
+                "Contact aren't updated");
+    }
+
+    @Test
+    public void checkGetContactExternalForProd(){
+        assertEquals(service.getGetContactExternalForProd(authProd).getCount(), 4,
+                "Quantity of contacts aren't correct");
+    }
 }

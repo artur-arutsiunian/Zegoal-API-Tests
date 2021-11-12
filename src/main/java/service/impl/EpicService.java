@@ -83,4 +83,63 @@ public class EpicService extends BaseService {
                 .extract()
                 .as(GetEpic.class);
     }
+
+    public PostEpic getCreateEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateEpicForProd())
+                .post(BASE_URL_FOR_PROD + EPIC_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostEpic.class);
+    }
+
+    @SneakyThrows
+    private EpicRequest initCreateEpicForProd(Object[]... field) {
+        return
+                new EpicRequest("2021-11-13T21:00:00", "2021-11-14T21:00:00", "new epic3", List.of(6));
+    }
+
+    public PatchEpic getPatchEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchEpicForProd())
+                .patch(BASE_URL_FOR_PROD + EPIC_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchEpic.class);
+    }
+
+    @SneakyThrows
+    private EpicRequestPatch initPatchEpicForProd(Object[]... field) {
+        return
+                new EpicRequestPatch("2021-11-12");
+    }
+
+    public GetEpic getGetEpicForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + EPIC_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetEpic.class);
+    }
 }

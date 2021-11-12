@@ -19,7 +19,7 @@ import static io.restassured.RestAssured.given;
 public class FormService extends BaseService{
 
     private final static String FORM_CREATE_ENDPOINT = "/api/v1/form/";
-    private final static String FORM_PUT_ENDPOINT = "/api/v1/form/19/";
+    private final static String FORM_PUT_ENDPOINT = "/api/v1/form/3/";
     private final static String FORM_GET_ENDPOINT = "/api/v1/form/";
 
     public PostAsset getCreateForm(Token token) {
@@ -92,6 +92,65 @@ public class FormService extends BaseService{
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(BASE_URL + FORM_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetForm.class);
+    }
+
+    public PostAsset getCreateFormForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateFormForProd())
+                .post(BASE_URL_FOR_PROD + FORM_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostAsset.class);
+    }
+
+    @SneakyThrows
+    private FormRequest initCreateFormForProd(Object[]... field) {
+        return
+                new FormRequest("loi10", 1);
+    }
+
+    public PutForm getPutFormForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPutFormForProd())
+                .put(BASE_URL_FOR_PROD + FORM_PUT_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PutForm.class);
+    }
+
+    @SneakyThrows
+    private FormRequest initPutFormForProd(Object[]... field) {
+        return
+                new FormRequest("qwer88", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
+    }
+
+    public GetForm getGetFormForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + FORM_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

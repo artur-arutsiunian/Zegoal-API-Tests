@@ -22,13 +22,31 @@ public class UserTest extends BaseTest {
 
     @Test //сервер отдает null в ответе хотя по факту в админку кладет изменившееся значение
     public void checkPatchUser(){
-        assertEquals(service.getPatchUser(token).getFirstName(), "User22",
+        assertEquals(service.getPatchUser(token).getFirstName(), "Ji",
                 "User is not updated");
     }
 
     @Test
     public void checkGetUser(){
         assertEquals(service.getGetUser(token).getCount(), 14,
+                "Quantity of users is incorrect");
+    }
+
+    @Test
+    public void checkCreateUserForProd(){
+        assertEquals(service.getCreateUserForProd(tokenProd).getEmail(), "created99@gm.com",
+                "User email is incorrect");
+    }
+
+    @Test //сервер отдает null в ответе хотя по факту в админку кладет изменившееся значение
+    public void checkPatchUserProd(){
+        assertEquals(service.getPatchUserForProd(tokenProd).getFirstName(), "user",
+                "User is not updated");
+    }
+
+    @Test
+    public void checkGetUserProd(){
+        assertEquals(service.getGetUserForProd(tokenProd).getCount(), 3,
                 "Quantity of users is incorrect");
     }
 }

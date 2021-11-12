@@ -100,4 +100,61 @@ public class TaskService extends BaseService {
                 .extract()
                 .as(GetTask.class);
     }
+
+    public CreateTask getCreateTaskForProd(Token tokenProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initTaskForProd())
+                .post(BASE_URL_FOR_PROD + TASK_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(CreateTask.class);
+    }
+
+    @SneakyThrows
+    private TaskRequest initTaskForProd(Object[]... field) {
+        return
+                new TaskRequest(3, 2, 1, "test", "2021-09-18", "13:01", "2021-09-19T14:30", "8f0690fd-5dd5-4789-9131-290a7caa2fb7");
+    }
+
+    public PatchTask getPatchTaskForProd(Token tokenProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchTaskForProd())
+                .patch(BASE_URL_FOR_PROD + TASK_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchTask.class);
+
+    }
+
+    @SneakyThrows
+    private TaskRequestPatch initPatchTaskForProd(Object[]... field) {
+        return
+                new TaskRequestPatch("8f0690fd-5dd5-4789-9131-290a7caa2fb7");
+    }
+
+    public GetTask getGetTaskForProd(Token tokenProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + TASK_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetTask.class);
+    }
 }

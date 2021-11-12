@@ -8,6 +8,7 @@ import rest.objects.contact.ContactRequestForPatchExternal;
 import rest.objects.contact.get.external.GetContactExternal;
 import rest.objects.contact.patch.external.PatchContactExternal;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import service.BaseService;
 
 import java.util.List;
@@ -48,6 +49,43 @@ public class ContactExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .get(BASE_URL + CONTACT_GET_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetContactExternal.class);
+    }
+
+    public List<PatchContactExternal> getPatchContactExternalForProd(AuthProd authProd) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initPatchContactForProd())
+                .patch(BASE_URL_FOR_PROD + CONTACT_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchContactExternal.class);
+    }
+
+    @SneakyThrows
+    private List<ContactRequestForPatchExternal> initPatchContactForProd(Object[]... field) {
+        return ImmutableList.of(
+                new ContactRequestForPatchExternal(1, true),
+                new ContactRequestForPatchExternal(2, true));
+    }
+
+    public GetContactExternal getGetContactExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .get(BASE_URL_FOR_PROD + CONTACT_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

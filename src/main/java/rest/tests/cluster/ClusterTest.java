@@ -27,4 +27,22 @@ public class ClusterTest extends BaseTest {
         assertEquals(service.getGetCluster(token).getCount(), 2,
                 "Quantity of clusters aren't correct");
     }
+
+    @Test
+    public void checkCreateClusterForProd(){
+        assertEquals(service.getCreateClusterForProd(tokenProd).getPk(), 4,
+                "Cluster isn't created");
+    }
+
+    @Test
+    public void checkPutClusterForProd(){
+        assertEquals(service.getPutClusterForProd(tokenProd).getName(), "new2",
+                "Cluster isn't updated");
+    }
+
+    @Test
+    public void checkGetClusterForProd(){
+        assertEquals(service.getGetClusterForProd(tokenProd).getCount(), 4,
+                "Quantity of clusters aren't correct");
+    }
 }

@@ -9,7 +9,7 @@ import rest.objects.apikey.ApiKey;
 public abstract class BaseService {
 
     protected final static String BASE_URL = "https://stagebaseautotest.zgtest.info/";
-    protected final static String BASE_URL_FOR_PROD = "";
+    protected final static String BASE_URL_FOR_PROD = "https://prodbaseautotest.zegoal.com/";
 
     /**
      * Static method which allows us to log request and response data

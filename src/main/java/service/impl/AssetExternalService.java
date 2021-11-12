@@ -8,6 +8,7 @@ import rest.objects.asset.AssetRequestForPatchExternal;
 import rest.objects.asset.get.external.GetAssetExternal;
 import rest.objects.asset.patch.external.PatchAssetExternal;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import service.BaseService;
 
 import java.util.List;
@@ -48,6 +49,43 @@ public class AssetExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .get(BASE_URL + ASSET_GET_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetAssetExternal.class);
+    }
+
+    public List<PatchAssetExternal> getPatchAssetExternalForProd(AuthProd authProd) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initPatchAssetForProd())
+                .patch(BASE_URL_FOR_PROD + ASSET_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchAssetExternal.class);
+    }
+
+    @SneakyThrows
+    private List<AssetRequestForPatchExternal> initPatchAssetForProd(Object[]... field) {
+        return ImmutableList.of(
+                new AssetRequestForPatchExternal(1, true),
+                new AssetRequestForPatchExternal(2, true));
+    }
+
+    public GetAssetExternal getGetAssetExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .get(BASE_URL_FOR_PROD + ASSET_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

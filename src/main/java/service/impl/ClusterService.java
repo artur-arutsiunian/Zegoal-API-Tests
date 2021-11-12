@@ -84,4 +84,63 @@ public class ClusterService extends BaseService {
                 .extract()
                 .as(GetCluster.class);
     }
+
+    public PostCluster getCreateClusterForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateClusterForProd())
+                .post(BASE_URL_FOR_PROD + CREATE_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostCluster.class);
+    }
+
+    @SneakyThrows
+    private ClusterRequest initCreateClusterForProd(Object[]... field) {
+        return
+                new ClusterRequest("clus6", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+    }
+
+    public PutCluster getPutClusterForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPutClusterForProd())
+                .patch(BASE_URL_FOR_PROD + PUT_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PutCluster.class);
+    }
+
+    @SneakyThrows
+    private ClusterRequestPut initPutClusterForProd(Object[]... field) {
+        return
+                new ClusterRequestPut("new2", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+    }
+
+    public GetCluster getGetClusterForProd(Token token) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + GET_CLUSTER_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetCluster.class);
+    }
 }

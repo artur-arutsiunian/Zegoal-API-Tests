@@ -55,4 +55,41 @@ public class CommentNotificationService extends BaseService {
                 .extract()
                 .as(GetCommentNotification.class);
     }
+
+    public PostCommentNotification getCreateCommentNotificationForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCommentNotificationForProd())
+                .post(BASE_URL_FOR_PROD + CREATE_COMMENT_NOTIFICATION_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostCommentNotification.class);
+    }
+
+    @SneakyThrows
+    private CommentNotificationRequest initCommentNotificationForProd(Object[]... field) {
+        return
+                new CommentNotificationRequest(1);
+    }
+
+    public GetCommentNotification getGetCommentNotificationForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + GET_COMMENT_NOTIFICATION_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetCommentNotification.class);
+    }
 }

@@ -8,6 +8,7 @@ import rest.objects.token.Token;
 import rest.objects.user.PojoProfile;
 import rest.objects.user.PojoProfilePatch;
 import rest.objects.user.UserRequest;
+import rest.objects.user.UserRequestPatch;
 import rest.objects.user.get.GetUser;
 import rest.objects.user.patch.Profile;
 import rest.objects.user.post.CreateUser;
@@ -20,16 +21,8 @@ import static io.restassured.RestAssured.given;
 public class UserService extends BaseService {
 
     private final static String USER_CREATE_ENDPOINT = "/api/v1/user/";
-    private final static String USER_PATCH_ENDPOINT = "/api/v1/user/ce24c956-1ec6-4a27-a379-74de3655dc56/";
+    private final static String USER_PATCH_ENDPOINT = "/api/v1/user/df6801e7-fd2a-4fd2-adc8-d94e2cc527e4/";
     private final static String USER_GET_ENDPOINT = "/api/v1/user/";
-
-    /**
-     * Static method which allows us to log request and response data
-     * @see RestAssured#filters(Filter, Filter...)
-     */
-//    static {
-//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-//    }
 
     public CreateUser getCreateUser(Token token) {
 
@@ -86,9 +79,9 @@ public class UserService extends BaseService {
     }
 
     @SneakyThrows
-    private PojoProfilePatch initPatchUser(Object[]... field) {
+    private UserRequestPatch initPatchUser(Object[]... field) {
         return
-                new PojoProfilePatch("User22");
+                new UserRequestPatch(new PojoProfilePatch("Ji"));
     }
 
 //    private Map<String, Object> initPatchUser(String first_name) {
@@ -104,6 +97,65 @@ public class UserService extends BaseService {
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .when()
                 .get(BASE_URL + USER_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetUser.class);
+    }
+
+    public CreateUser getCreateUserForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateUserForProd())
+                .post(BASE_URL_FOR_PROD + USER_CREATE_ENDPOINT)
+                .then().assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(CreateUser.class);
+
+    }
+
+    @SneakyThrows
+    private UserRequest initCreateUserForProd(Object[]... field) {
+        return
+                new UserRequest("created99@gm.com", "Wimix1", new PojoProfile("User22", "Us"), List.of(2), 3);
+    }
+
+    public Profile getPatchUserForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchUserForProd())
+                .patch(BASE_URL_FOR_PROD + USER_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(Profile.class);
+
+    }
+
+    @SneakyThrows
+    private UserRequestPatch initPatchUserForProd(Object[]... field) {
+        return
+                new UserRequestPatch(new PojoProfilePatch("user"));
+    }
+
+    public GetUser getGetUserForProd(Token tokenProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + USER_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

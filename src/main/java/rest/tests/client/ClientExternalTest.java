@@ -21,4 +21,16 @@ public class ClientExternalTest extends BaseTest {
         assertEquals(service.getGetTClientExternal(auth).getCount(), 19,
                 "Quantity of clients aren't correct");
     }
+
+    @Test
+    public void checkPatchClientExternalForProd(){ //тоже как и patch user есть проблема с репликой, если установить везде false - в админке меняет, а ответ приходит как будто не верный
+        assertEquals(service.getPatchClientExternalForProd(authProd).get(0).getIsExist(), true,
+                "Clients aren't updated");
+    }
+
+    @Test
+    public void checkGetClientExternalForProd(){
+        assertEquals(service.getGetTClientExternalForProd(authProd).getCount(), 5,
+                "Quantity of clients aren't correct");
+    }
 }

@@ -111,4 +111,63 @@ public class ClientService extends BaseService {
                 .extract()
                 .as(GetClient.class);
     }
+
+    public PostClient getCreateClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateClientForProd())
+                .post(BASE_URL_FOR_PROD + CLIENT_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostClient.class);
+    }
+
+    @SneakyThrows
+    private ClientRequest initCreateClientForProd(Object[]... field) {
+        return
+                new ClientRequest("client name98", new MainLocationPojo("main loc"));
+    }
+
+    public PatchClient getPatchClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchClientForProd())
+                .patch(BASE_URL_FOR_PROD + CLIENT_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchClient.class);
+    }
+
+    @SneakyThrows
+    private ClientRequest initPatchClientForProd(Object[]... field) {
+        return
+                new ClientRequest("client name2");
+    }
+
+    public GetClient getGetClientForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + CLIENT_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetClient.class);
+    }
 }

@@ -20,4 +20,16 @@ public class WorkStatusLogTest extends BaseTest {
         assertEquals(service.getGetWorkStatusLog(token).getCount(), 11,
                 "Quantity of work logs aren't correct");
     }
+
+    @Test
+    public void checkCreateWorkStatusLogForProd(){
+        assertEquals(service.getCreateWorkStatusLogForProd(tokenProd).getUser(), "8f0690fd-5dd5-4789-9131-290a7caa2fb7",
+                "Work isn't created");
+    }
+
+    @Test
+    public void checkGetWorkStatusLogForProd(){
+        assertEquals(service.getGetWorkStatusLogForProd(tokenProd).getCount(), 3,
+                "Quantity of work logs aren't correct");
+    }
 }

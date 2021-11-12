@@ -31,4 +31,22 @@ public class TaskTest extends BaseTest {
         assertEquals(service.getGetTask(token).getCount(), 28,
                 "Quantity of task is incorrect");
     }
+
+    @Test
+    public void checkCreateTaskForProd(){
+        assertEquals(service.getCreateTaskForProd(tokenProd).getAssignedUser(), "8f0690fd-5dd5-4789-9131-290a7caa2fb7",
+                "User id is incorrect");
+    }
+
+    @Test
+    public void checkPatchTaskProd() {
+        assertEquals(service.getPatchTaskForProd(tokenProd).getAssignedUser(), "8f0690fd-5dd5-4789-9131-290a7caa2fb7",
+                "Task user is doesn't change");
+    }
+
+    @Test
+    public void checkGetTaskProd() {
+        assertEquals(service.getGetTaskForProd(tokenProd).getCount(), 8,
+                "Quantity of task is incorrect");
+    }
 }

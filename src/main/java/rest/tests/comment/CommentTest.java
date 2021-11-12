@@ -20,4 +20,16 @@ public class CommentTest extends BaseTest {
         assertEquals(service.getGetComment(token).getCount(), 2,
                 "Quantity of comments aren't correct");
     }
+
+    @Test
+    public void checkCreateCommentForProd(){
+        assertEquals(service.getCreateCommentForProd(tokenProd).getText(), "HI",
+                "Comment isn't created");
+    }
+
+    @Test
+    public void checkGetCommentForProd(){
+        assertEquals(service.getGetCommentForProd(tokenProd).getCount(), 3,
+                "Quantity of comments aren't correct");
+    }
 }

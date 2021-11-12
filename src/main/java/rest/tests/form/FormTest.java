@@ -46,4 +46,23 @@ public class FormTest extends BaseTest {
         assertEquals(service.getGetForm(token).getCount(), 40,
                 "Quantity of forms aren't correct");
     }
+
+    @Test
+    public void checkCreateFormForProd() {
+        assertEquals(service.getCreateFormForProd(tokenProd).getName(), "loi10",
+                "Form isn't created");
+    }
+
+    @Test
+    public void checkPutFormForProd() {
+        assertEquals(service.getPutFormForProd(tokenProd).getName(), "qwer88",
+                "Form isn't updated");
+
+    }
+
+    @Test
+    public void checkGetFormForProd() {
+        assertEquals(service.getGetFormForProd(tokenProd).getCount(), 4,
+                "Quantity of forms aren't correct");
+    }
 }

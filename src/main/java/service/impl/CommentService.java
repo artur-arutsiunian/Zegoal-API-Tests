@@ -54,4 +54,41 @@ public class CommentService extends BaseService {
                 .extract()
                 .as(GetComment.class);
     }
+
+    public PostComment getCreateCommentForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateCommentForProd())
+                .post(BASE_URL_FOR_PROD + COMMENT_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostComment.class);
+    }
+
+    @SneakyThrows
+    private CommentRequest initCreateCommentForProd(Object[]... field) {
+        return
+                new CommentRequest("HI", 1);
+    }
+
+    public GetComment getGetCommentForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + COMMENT_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetComment.class);
+    }
 }

@@ -8,6 +8,7 @@ import rest.objects.client.ClientRequestForPatchExternal;
 import rest.objects.client.get.external.GetClientExternal;
 import rest.objects.client.patch.external.PatchClientExternal;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import service.BaseService;
 
 import java.util.List;
@@ -49,6 +50,43 @@ public class ClientExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .get(BASE_URL + CLIENT_GET_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetClientExternal.class);
+    }
+
+    public List<PatchClientExternal> getPatchClientExternalForProd(AuthProd authProd) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initPatchClientForProd())
+                .patch(BASE_URL_FOR_PROD + CLIENT_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchClientExternal.class);
+    }
+
+    @SneakyThrows
+    private List<ClientRequestForPatchExternal> initPatchClientForProd(Object[]... field) {
+        return ImmutableList.of(
+                new ClientRequestForPatchExternal(1, true),
+                new ClientRequestForPatchExternal(2, true));
+    }
+
+    public GetClientExternal getGetTClientExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .get(BASE_URL_FOR_PROD + CLIENT_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

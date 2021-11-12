@@ -20,4 +20,16 @@ public class SettingsTest extends BaseTest {
         assertEquals(service.getGetSettings(token).getCount(), 22,
                 "Quantity of settings aren't correct");
     }
+
+    @Test
+    public void checkPatchSettingsForProd(){
+        assertEquals(service.getPatchSettingsForProd(tokenProd).get(0).getValue(), "2",
+                "Settings aren't updated");
+    }
+
+    @Test
+    public void checkGetSettingsForProd(){
+        assertEquals(service.getGetSettingsForProd(tokenProd).getCount(), 22,
+                "Quantity of settings aren't correct");
+    }
 }

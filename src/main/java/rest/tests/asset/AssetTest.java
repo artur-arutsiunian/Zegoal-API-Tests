@@ -29,4 +29,22 @@ public class AssetTest extends BaseTest {
         assertEquals(service.getGetAsset(token).getCount(), 9,
                 "Quantity of assets aren't correct");
     }
+
+    @Test
+    public void checkCreateAssetForProd(){
+        assertEquals(service.getCreateAssetForProd(tokenProd).getName(), "qwer107",
+                "Asset isn't created");
+    }
+
+    @Test
+    public void checkPatchAssetForProd(){
+        assertEquals(service.getPatchAssetForProd(tokenProd).getLocation(), 8,
+                "Asset isn't updated");
+    }
+
+    @Test
+    public void checkGetAssetForProd(){
+        assertEquals(service.getGetAssetForProd(tokenProd).getCount(), 3,
+                "Quantity of assets aren't correct");
+    }
 }

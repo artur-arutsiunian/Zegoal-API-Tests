@@ -21,4 +21,16 @@ public class AssetExternalTest extends BaseTest {
         assertEquals(service.getGetAssetExternal(auth).getCount(), 5,
                 "Quantity of assets aren't correct");
     }
+
+    @Test
+    public void checkPatchAssetExternalForProd(){ //тоже как и patch user есть проблема с репликой, если установить везде false - в админке меняет, а ответ приходит как будто не верный
+        assertEquals(service.getPatchAssetExternalForProd(authProd).get(0).getIsExist(), true,
+                "Assets aren't updated");
+    }
+
+    @Test
+    public void checkGetAssetExternalForProd(){
+        assertEquals(service.getGetAssetExternalForProd(authProd).getCount(), 2,
+                "Quantity of assets aren't correct");
+    }
 }

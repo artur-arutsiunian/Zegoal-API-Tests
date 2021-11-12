@@ -30,7 +30,25 @@ public class ClientTest extends BaseTest {
 
     @Test
     public void checkGetClient(){
-        assertEquals(service.getGetClient(token).getCount(), 18,
+        assertEquals(service.getGetClient(token).getCount(), 19,
+                "Quantity of clients are incorrect");
+    }
+
+    @Test
+    public void checkCreateClientForProd(){
+        assertEquals(service.getCreateClientForProd(tokenProd).getName(), "client name98",
+                "Client name is incorrect");
+    }
+
+    @Test
+    public void checkPatchClientForProd(){
+        assertEquals(service.getPatchClientForProd(tokenProd).getName(),"client name2",
+                "Client is not updated");
+    }
+
+    @Test
+    public void checkGetClientForProd(){
+        assertEquals(service.getGetClientForProd(tokenProd).getCount(), 6,
                 "Quantity of clients are incorrect");
     }
 }

@@ -95,4 +95,63 @@ public class AssetService extends BaseService {
                 .extract()
                 .as(GetAsset.class);
     }
+
+    public PostAsset getCreateAssetForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateAssetForProd())
+                .post(BASE_URL_FOR_PROD + ASSET_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostAsset.class);
+    }
+
+    @SneakyThrows
+    private AssetRequest initCreateAssetForProd(Object[]... field) {
+        return
+                new AssetRequest("qwer107", 3);
+    }
+
+    public PatchAsset getPatchAssetForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchAssetForProd())
+                .patch(BASE_URL_FOR_PROD + ASSET_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchAsset.class);
+    }
+
+    @SneakyThrows
+    private AssetRequestPatch initPatchAssetForProd(Object[]... field) {
+        return
+                new AssetRequestPatch(8);
+    }
+
+    public GetAsset getGetAssetForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + ASSET_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetAsset.class);
+    }
 }

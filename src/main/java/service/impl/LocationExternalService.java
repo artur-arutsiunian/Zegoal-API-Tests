@@ -10,6 +10,7 @@ import rest.objects.location.get.external.GetLocationExternal;
 import rest.objects.location.patch.external.PatchLocationExternal;
 import rest.objects.location.post.external.PostLocationExternal;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import service.BaseService;
 
 import java.util.List;
@@ -73,6 +74,64 @@ public class LocationExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .get(BASE_URL + LOCATION_GET_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetLocationExternal.class);
+    }
+
+    public PostLocationExternal getCreateLocationExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initCreateLocationForProd())
+                .post(BASE_URL_FOR_PROD + LOCATION_CREATE_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostLocationExternal.class);
+    }
+
+    @SneakyThrows
+    private List<LocationRequestExternal> initCreateLocationForProd(Object[]... field) {
+        return ImmutableList.of(
+                new LocationRequestExternal("проспект Дзержинского, 76А", "2021-10-09 11:00"),
+                new LocationRequestExternal("проспект Дзержинского, 78А", "2021-10-09 17:00"));
+    }
+    public List<PatchLocationExternal> getPatchLocationExternalForProd(AuthProd authProd) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initPatchLocationForProd())
+                .patch(BASE_URL_FOR_PROD + LOCATION_PATCH_EXTERNAL_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchLocationExternal.class);
+    }
+
+    @SneakyThrows
+    private List<LocationRequestForPatchExternal> initPatchLocationForProd(Object[]... field) {
+        return ImmutableList.of(
+                new LocationRequestForPatchExternal(2, true),
+                new LocationRequestForPatchExternal(3, true));
+    }
+
+    public GetLocationExternal getGetTLocationExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .get(BASE_URL_FOR_PROD + LOCATION_GET_EXTERNAL_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

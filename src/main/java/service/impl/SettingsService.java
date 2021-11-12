@@ -56,4 +56,42 @@ public class SettingsService extends BaseService {
                 .extract()
                 .as(GetSettings.class);
     }
+
+    public List<PatchSetting> getPatchSettingsForProd(Token tokenProd) {
+
+        JsonPath jsonPath = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchSettingForProd())
+                .patch(BASE_URL_FOR_PROD + PATCH_SETTINGS_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract().body().jsonPath();
+        return jsonPath.getList("", PatchSetting.class);
+    }
+
+    @SneakyThrows
+    private List<SettingsRequest> initPatchSettingForProd(Object[]... field) {
+        return ImmutableList.of(
+                new SettingsRequest(1, "2"),
+                new SettingsRequest(2, "UTC+10000"));
+    }
+
+    public GetSettings getGetSettingsForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + GET_SETTINGS_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetSettings.class);
+    }
 }

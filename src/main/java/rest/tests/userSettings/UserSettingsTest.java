@@ -20,4 +20,16 @@ public class UserSettingsTest extends BaseTest {
         assertEquals(service.getGetUserSettings(token).getCount(), 308,
                 "Quantity of user settings aren't correct");
     }
+
+    @Test
+    public void checkPatchUserSettingsForProd(){
+        assertEquals(service.getPatchUserSettingsForProd(tokenProd).get(0).getValue(), "1",
+                "UserSettings aren't updated");
+    }
+
+    @Test
+    public void checkGetUserSettingsForProd(){
+        assertEquals(service.getGetUserSettingsForProd(tokenProd).getCount(), 66,
+                "Quantity of user settings aren't correct");
+    }
 }

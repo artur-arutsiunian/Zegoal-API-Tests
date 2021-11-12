@@ -14,4 +14,10 @@ public class FormResultExternal extends BaseTest {
         assertEquals(service.getGetFormResultExternal(auth).getCount(), 3,
                 "Quantity of form result aren't correct ");
     }
+
+    @Test
+    public void checkGetFormResultExternalServiceForProd(){
+        assertEquals(service.getGetFormResultExternalForProd(authProd).getCount(), 1,
+                "Quantity of form result aren't correct ");
+    }
 }

@@ -102,4 +102,63 @@ public class ContactService extends BaseService {
                 .as(GetContact.class);
     }
 
+    public PostContact getCreateContactForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initCreateContactForProd())
+                .post(BASE_URL_FOR_PROD + CONTACT_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(PostContact.class);
+    }
+
+    @SneakyThrows
+    private ContactRequest initCreateContactForProd(Object[]... field) {
+        return
+                new ContactRequest("BRAD098", "291238546", "br7@mail.com", List.of(3));
+    }
+
+    public PatchContact getPatchContactForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .body(initPatchContactForProd())
+                .patch(BASE_URL_FOR_PROD + CONTACT_PATCH_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(PatchContact.class);
+    }
+
+    @SneakyThrows
+    private ContactRequestPatch initPatchContactForProd(Object[]... field) {
+        return
+                new ContactRequestPatch("BRA","br10@mail.com", List.of(3));
+    }
+
+    public GetContact getGetContactForProd(Token tokenProd) {
+
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + tokenProd.getAccessToken())
+                .when()
+                .get(BASE_URL_FOR_PROD + CONTACT_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetContact.class);
+    }
+
 }

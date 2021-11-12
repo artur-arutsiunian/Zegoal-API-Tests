@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import rest.TestRunner;
 import rest.objects.apikey.ApiKey;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import rest.objects.token.Token;
 import service.impl.AuthService;
 
@@ -17,11 +18,17 @@ public abstract class BaseTest extends TestRunner {
     protected Auth auth;
     protected Token token;
     protected ApiKey apiKey;
+    protected AuthProd authProd;
+    protected Token tokenProd;
+    protected ApiKey apiKeyProd;
 
     @BeforeEach
     void setUp() {
         this.auth = new AuthService().getAuth();
         this.token = auth.getToken();
         this.apiKey = auth.getApiKey();
+        this.authProd = new AuthService().getAuthForProd();
+        this.tokenProd = authProd.getTokenProd();
+        this.apiKeyProd = authProd.getApiKeyProd();
     }
 }

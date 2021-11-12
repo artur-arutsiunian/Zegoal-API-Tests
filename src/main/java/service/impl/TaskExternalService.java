@@ -7,6 +7,7 @@ import rest.objects.task.TaskRequestExternal;
 import rest.objects.task.get.external.GetTaskExternal;
 import rest.objects.task.post.external.CreateTaskExternal;
 import rest.objects.token.Auth;
+import rest.objects.token.AuthProd;
 import service.BaseService;
 
 import java.util.List;
@@ -61,6 +62,41 @@ public class TaskExternalService extends BaseService {
                 .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
                 .when()
                 .get(BASE_URL + TASK_GET_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .as(GetTaskExternal.class);
+    }
+
+    public CreateTaskExternal getCreateTaskExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .body(initTaskForProdForProd())
+                .post(BASE_URL_FOR_PROD + TASK_CREATE_ENDPOINT)
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(201)
+                .extract()
+                .as(CreateTaskExternal.class);
+    }
+
+    @SneakyThrows
+    private List<TaskRequestExternal> initTaskForProdForProd(Object[]... field) {
+        return ImmutableList.of(
+                new TaskRequestExternal(6, "проспект Дзержинского, 73А", "2021-10-08 11:00", "mr.arutsiunian@mail.ru", "Sample Company"));
+    }
+
+    public GetTaskExternal getGetTaskExternalForProd(AuthProd authProd) {
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Api-Key " + authProd.getApiKeyProd().getApiKey())
+                .when()
+                .get(BASE_URL_FOR_PROD + TASK_GET_ENDPOINT)
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
