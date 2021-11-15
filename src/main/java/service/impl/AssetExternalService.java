@@ -18,17 +18,17 @@ import static io.restassured.RestAssured.given;
 
 public class AssetExternalService extends BaseService {
 
-    private final static String ASSET_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_asset/list_update/";
+//    private final static String ASSET_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_asset/list_update/";
     private final static String ASSET_GET_EXTERNAL_ENDPOINT = "/api/external/asset/";
+
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public List<PatchAssetExternal> getPatchAssetExternal() {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        JsonPath jsonPath = given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchAsset())
-                .patch(url + ASSET_PATCH_EXTERNAL_ENDPOINT)
+                .patch("bulk_update_asset/list_update/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -58,40 +58,17 @@ public class AssetExternalService extends BaseService {
                 .as(GetAssetExternal.class);
     }
 
-    public List<PatchAssetExternal> getPatchAssetExternalForProd(Auth auth) {
+    private class RequestBuilder {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .body(initPatchAssetForProd())
-                .patch(url + ASSET_PATCH_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract().body().jsonPath();
-        return jsonPath.getList("", PatchAssetExternal.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private List<AssetRequestForPatchExternal> initPatchAssetForProd(Object[]... field) {
-        return ImmutableList.of(
-                new AssetRequestForPatchExternal(1, true),
-                new AssetRequestForPatchExternal(2, true));
-    }
-
-    public GetAssetExternal getGetAssetExternalForProd(Auth auth) {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .get(url + ASSET_GET_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetAssetExternal.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/external")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                    .build();
+        }
     }
 }
