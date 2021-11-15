@@ -18,9 +18,6 @@ import static io.restassured.RestAssured.given;
 
 public class AssetExternalService extends BaseService {
 
-//    private final static String ASSET_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_asset/list_update/";
-    private final static String ASSET_GET_EXTERNAL_ENDPOINT = "/api/external/asset/";
-
     private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public List<PatchAssetExternal> getPatchAssetExternal() {
@@ -45,11 +42,9 @@ public class AssetExternalService extends BaseService {
     }
 
     public GetAssetExternal getGetAssetExternal() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + ASSET_GET_EXTERNAL_ENDPOINT)
+                .get("asset/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

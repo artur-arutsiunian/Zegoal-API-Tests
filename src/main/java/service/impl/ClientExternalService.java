@@ -1,8 +1,10 @@
 package service.impl;
 
 import com.google.common.collect.ImmutableList;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.client.ClientRequestForPatchExternal;
 import rest.objects.client.get.external.GetClientExternal;
@@ -16,17 +18,14 @@ import static io.restassured.RestAssured.given;
 
 public class ClientExternalService extends BaseService {
 
-    private final static String CLIENT_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_client/list_update/";
-    private final static String CLIENT_GET_EXTERNAL_ENDPOINT = "/api/external/client/";
+    private final ClientExternalService.RequestBuilder requestBuilder = new ClientExternalService.RequestBuilder();
 
     public List<PatchClientExternal> getPatchClientExternal() {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        JsonPath jsonPath = given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchClient())
-                .patch(url + CLIENT_PATCH_EXTERNAL_ENDPOINT)
+                .patch("bulk_update_client/list_update/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -44,11 +43,9 @@ public class ClientExternalService extends BaseService {
 
 
     public GetClientExternal getGetTClientExternal() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + CLIENT_GET_EXTERNAL_ENDPOINT)
+                .get("client/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -57,40 +54,17 @@ public class ClientExternalService extends BaseService {
                 .as(GetClientExternal.class);
     }
 
-    public List<PatchClientExternal> getPatchClientExternalForProd() {
+    private class RequestBuilder {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .body(initPatchClientForProd())
-                .patch(url + CLIENT_PATCH_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract().body().jsonPath();
-        return jsonPath.getList("", PatchClientExternal.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private List<ClientRequestForPatchExternal> initPatchClientForProd(Object[]... field) {
-        return ImmutableList.of(
-                new ClientRequestForPatchExternal(1, true),
-                new ClientRequestForPatchExternal(2, true));
-    }
-
-    public GetClientExternal getGetTClientExternalForProd() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .get(url + CLIENT_GET_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetClientExternal.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/external")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                    .build();
+        }
     }
 }
