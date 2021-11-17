@@ -1,5 +1,6 @@
 package rest.tests.cluster;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import rest.objects.cluster.ClusterRequest;
 import rest.tests.BaseTest;
@@ -8,41 +9,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClusterTest extends BaseTest {
 
-    ClusterService service = new ClusterService();
+    private ClusterService service;
+
+    @BeforeAll
+    void initService(){
+        service = new ClusterService();
+    }
 
     @Test
     public void checkCreateCluster(){
-        assertEquals(service.getCreateCluster().getPk(), 2,
+        assertEquals(service.getCreateCluster().getPk(), 6,
                 "Cluster isn't created");
     }
 
     @Test
     public void checkPutCluster(){
-        assertEquals(service.getPutCluster().getName(), "new",
+        assertEquals(service.getPutCluster().getName(), "cluster6",
                 "Cluster isn't updated");
     }
 
     @Test
     public void checkGetCluster(){
-        assertEquals(service.getGetCluster().getCount(), 2,
-                "Quantity of clusters aren't correct");
-    }
-
-    @Test
-    public void checkCreateClusterForProd(){
-        assertEquals(service.getCreateClusterForProd().getPk(), 1,
-                "Cluster isn't created");
-    }
-
-    @Test
-    public void checkPutClusterForProd(){
-        assertEquals(service.getPutClusterForProd().getName(), "new",
-                "Cluster isn't updated");
-    }
-
-    @Test
-    public void checkGetClusterForProd(){
-        assertEquals(service.getGetClusterForProd().getCount(), 1,
+        assertEquals(service.getGetCluster().getCount(), 6,
                 "Quantity of clusters aren't correct");
     }
 }

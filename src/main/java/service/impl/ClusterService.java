@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.cluster.ClusterRequest;
 import rest.objects.cluster.ClusterRequestPut;
@@ -16,18 +18,14 @@ import static io.restassured.RestAssured.given;
 
 public class ClusterService extends BaseService {
 
-    private final static String CREATE_CLUSTER_ENDPOINT = "/api/v1/cluster/";
-    private final static String PUT_CLUSTER_ENDPOINT = "/api/v1/cluster/1/";
-    private final static String GET_CLUSTER_ENDPOINT = "/api/v1/cluster/";
+    private final ClusterService.RequestBuilder requestBuilder = new ClusterService.RequestBuilder();
 
     public PostCluster getCreateCluster() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateCluster())
-                .post(url + CREATE_CLUSTER_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -39,17 +37,15 @@ public class ClusterService extends BaseService {
     @SneakyThrows
     private ClusterRequest initCreateCluster(Object[]... field) {
         return
-                new ClusterRequest("clus1", List.of("3b96a356-e7f6-41e8-abab-b47793236dc0"));
+                new ClusterRequest("work2", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
     public PutCluster getPutCluster() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPutCluster())
-                .patch(url + PUT_CLUSTER_ENDPOINT)
+                .patch("1/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -61,16 +57,14 @@ public class ClusterService extends BaseService {
     @SneakyThrows
     private ClusterRequestPut initPutCluster(Object[]... field) {
         return
-                new ClusterRequestPut("new", List.of("3b96a356-e7f6-41e8-abab-b47793236dc0"));
+                new ClusterRequestPut("cluster6", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
     public GetCluster getGetCluster() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + GET_CLUSTER_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -79,62 +73,17 @@ public class ClusterService extends BaseService {
                 .as(GetCluster.class);
     }
 
-    public PostCluster getCreateClusterForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateClusterForProd())
-                .post(url + CREATE_CLUSTER_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostCluster.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private ClusterRequest initCreateClusterForProd(Object[]... field) {
-        return
-                new ClusterRequest("clus1", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
-    }
-
-    public PutCluster getPutClusterForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPutClusterForProd())
-                .patch(url + PUT_CLUSTER_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PutCluster.class);
-    }
-
-    @SneakyThrows
-    private ClusterRequestPut initPutClusterForProd(Object[]... field) {
-        return
-                new ClusterRequestPut("new", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
-    }
-
-    public GetCluster getGetClusterForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + GET_CLUSTER_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetCluster.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/cluster")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }
