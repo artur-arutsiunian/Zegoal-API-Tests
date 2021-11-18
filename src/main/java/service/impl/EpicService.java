@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.epic.EpicRequest;
 import rest.objects.epic.EpicRequestPatch;
@@ -16,18 +18,14 @@ import static io.restassured.RestAssured.given;
 
 public class EpicService extends BaseService {
 
-    private final static String EPIC_CREATE_ENDPOINT= "/api/v1/epic/";
-    private final static String EPIC_PATCH_ENDPOINT= "/api/v1/epic/2/";
-    private final static String EPIC_GET_ENDPOINT= "/api/v1/epic/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostEpic getCreateEpic() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateEpic())
-                .post(url + EPIC_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -39,17 +37,15 @@ public class EpicService extends BaseService {
     @SneakyThrows
     private EpicRequest initCreateEpic(Object[]... field) {
         return
-                new EpicRequest("2021-10-13T21:00:00", "2021-10-13T21:00:00", "new epic2", List.of(23));
+                new EpicRequest("2021-10-18T21:00:00", "2021-10-19T21:00:00", "new epic18", List.of(9));
     }
 
     public PatchEpic getPatchEpic() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchEpic())
-                .patch(url + EPIC_PATCH_ENDPOINT)
+                .patch("2/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -61,16 +57,14 @@ public class EpicService extends BaseService {
     @SneakyThrows
     private EpicRequestPatch initPatchEpic(Object[]... field) {
         return
-                new EpicRequestPatch("2021-10-16");
+                new EpicRequestPatch("2021-10-20");
     }
 
     public GetEpic getGetEpic() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + EPIC_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -79,62 +73,17 @@ public class EpicService extends BaseService {
                 .as(GetEpic.class);
     }
 
-    public PostEpic getCreateEpicForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateEpicForProd())
-                .post(url + EPIC_CREATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostEpic.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private EpicRequest initCreateEpicForProd(Object[]... field) {
-        return
-                new EpicRequest("2021-11-13T21:00:00", "2021-11-14T21:00:00", "new epic2", List.of(4));
-    }
-
-    public PatchEpic getPatchEpicForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPatchEpicForProd())
-                .patch(url + EPIC_PATCH_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PatchEpic.class);
-    }
-
-    @SneakyThrows
-    private EpicRequestPatch initPatchEpicForProd(Object[]... field) {
-        return
-                new EpicRequestPatch("2021-11-12");
-    }
-
-    public GetEpic getGetEpicForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + EPIC_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetEpic.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/epic")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

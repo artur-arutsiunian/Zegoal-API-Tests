@@ -1,8 +1,10 @@
 package service.impl;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.Filter;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.location.LocationRequest;
 import rest.objects.location.LocationRequestForPatch;
@@ -19,27 +21,14 @@ import static io.restassured.RestAssured.given;
 
 public class LocationService extends BaseService {
 
-    private final static String LOCATION_CREATE_ENDPOINT = "/api/v1/location/";
-    private final static String LOCATION_PATCH_ENDPOINT = "/api/v1/location/3/";
-    private final static String LOCATION_GET_ENDPOINT = "/api/v1/location/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
-
-    /**
-     * Static method which allows us to log request and response data
-     *
-     * @see RestAssured#filters(Filter, Filter...)
-     */
-//    static {
-//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-//    }
     public PostLocation getCreateLocation() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateLocation())
-                .post(url + LOCATION_CREATE_ENDPOINT)
+                .post("/")
                 .then().assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(201)
@@ -50,7 +39,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequest initCreateLocation(Object[]... field) {
         return
-                new LocationRequest(1, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
+                new LocationRequest(1, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "проспект улица 8", 200);
     }
 
 //    private Map<String, Object> initCreateLocation(String client, String type, List<Integer> coordinates, String name, String raw_address, int radius) {
@@ -70,12 +59,10 @@ public class LocationService extends BaseService {
 
     public PatchLocation getPatchLocation() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchLocation())
-                .patch(url + LOCATION_PATCH_ENDPOINT)
+                .patch("3/")
                 .then().assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -86,7 +73,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequestForPatch initPatchLocation(Object[]... field) {
         return
-                new LocationRequestForPatch(1, "mm1");
+                new LocationRequestForPatch(1, "ps8");
     }
 
 //    private Map<String, Object> initPatchLocation(int client, String raw_address) {
@@ -99,11 +86,9 @@ public class LocationService extends BaseService {
 
     public GetLocation getGetLocation() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + LOCATION_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -112,60 +97,17 @@ public class LocationService extends BaseService {
                 .as(GetLocation.class);
     }
 
-    public PostLocation getCreateLocationForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateLocationForProd())
-                .post(url + LOCATION_CREATE_ENDPOINT)
-                .then().assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostLocation.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private LocationRequest initCreateLocationForProd(Object[]... field) {
-        return
-                new LocationRequest(1, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "проспект Дзержинского, 73А", 200);
-    }
-
-    public PatchLocation getPatchLocationForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPatchLocationForProd())
-                .patch(url + LOCATION_PATCH_ENDPOINT)
-                .then().assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PatchLocation.class);
-    }
-
-    @SneakyThrows
-    private LocationRequestForPatch initPatchLocationForProd(Object[]... field) {
-        return
-                new LocationRequestForPatch(1, "mm1");
-    }
-
-    public GetLocation getGetLocationForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + LOCATION_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetLocation.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/location")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 
 public class ClusterService extends BaseService {
 
-    private final ClusterService.RequestBuilder requestBuilder = new ClusterService.RequestBuilder();
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostCluster getCreateCluster() {
 

@@ -1,5 +1,6 @@
 package rest.tests.form;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.FormExternalService;
@@ -8,17 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormExternalTest extends BaseTest {
 
-    FormExternalService service = new FormExternalService();
+    private FormExternalService service;
 
-    @Test
-    public void checkGetFormExternal(){
-        assertEquals(service.getGetFormExternal().getCount(), 40,
-                "Quantity of form aren't correct");
+    @BeforeAll
+    void initService(){
+        service = new FormExternalService();
     }
 
     @Test
-    public void checkGetFormExternalForProd(){
-        assertEquals(service.getGetFormExternalForProd().getCount(), 2,
+    public void checkGetFormExternal(){
+        assertEquals(service.getGetFormExternal().getCount(), 4,
                 "Quantity of form aren't correct");
     }
 }

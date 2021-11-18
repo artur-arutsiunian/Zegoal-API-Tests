@@ -1,8 +1,10 @@
 package service.impl;
 
 import com.google.common.collect.ImmutableList;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.location.LocationRequestExternal;
 import rest.objects.location.LocationRequestForPatchExternal;
@@ -18,17 +20,13 @@ import static io.restassured.RestAssured.given;
 
 public class LocationExternalService extends BaseService {
 
-    private final static String LOCATION_CREATE_EXTERNAL_ENDPOINT = "/api/external/bulk_location_client/";
-    private final static String LOCATION_PATCH_EXTERNAL_ENDPOINT = "/api/external/bulk_update_location/list_update/";
-    private final static String LOCATION_GET_EXTERNAL_ENDPOINT = "api/external/location/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostLocationExternal getCreateLocationExternal() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateLocation())
-                .post(url + LOCATION_CREATE_EXTERNAL_ENDPOINT)
+                .post("bulk_location_client/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -40,18 +38,16 @@ public class LocationExternalService extends BaseService {
     @SneakyThrows
     private List<LocationRequestExternal> initCreateLocation(Object[]... field) {
         return ImmutableList.of(
-                new LocationRequestExternal("проспект Дзержинского, 76А", "2021-10-09 11:00"),
-        new LocationRequestExternal("проспект Дзержинского, 78А", "2021-10-09 17:00"));
+                new LocationRequestExternal("проспект, А", "2021-10-09 11:00"),
+        new LocationRequestExternal("проспект, B", "2021-10-09 17:00"));
     }
 
     public List<PatchLocationExternal> getPatchLocationExternal() {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        JsonPath jsonPath = given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchLocation())
-                .patch(url + LOCATION_PATCH_EXTERNAL_ENDPOINT)
+                .patch("bulk_update_location/list_update/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -68,11 +64,9 @@ public class LocationExternalService extends BaseService {
     }
 
     public GetLocationExternal getGetTLocationExternal() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + LOCATION_GET_EXTERNAL_ENDPOINT)
+                .get("location/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -81,61 +75,17 @@ public class LocationExternalService extends BaseService {
                 .as(GetLocationExternal.class);
     }
 
-    public PostLocationExternal getCreateLocationExternalForProd() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .body(initCreateLocationForProd())
-                .post(url + LOCATION_CREATE_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostLocationExternal.class);
-    }
+    private class RequestBuilder {
 
-    @SneakyThrows
-    private List<LocationRequestExternal> initCreateLocationForProd(Object[]... field) {
-        return ImmutableList.of(
-                new LocationRequestExternal("проспект Дзержинского, 76А", "2021-10-09 11:00"),
-                new LocationRequestExternal("проспект Дзержинского, 78А", "2021-10-09 17:00"));
-    }
-    public List<PatchLocationExternal> getPatchLocationExternalForProd() {
+        private final RequestSpecification requestSpec;
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .body(initPatchLocationForProd())
-                .patch(url + LOCATION_PATCH_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract().body().jsonPath();
-        return jsonPath.getList("", PatchLocationExternal.class);
-    }
-
-    @SneakyThrows
-    private List<LocationRequestForPatchExternal> initPatchLocationForProd(Object[]... field) {
-        return ImmutableList.of(
-                new LocationRequestForPatchExternal(2, true),
-                new LocationRequestForPatchExternal(3, true));
-    }
-
-    public GetLocationExternal getGetTLocationExternalForProd() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                .when()
-                .get(url + LOCATION_GET_EXTERNAL_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetLocationExternal.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/external/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                    .build();
+        }
     }
 }

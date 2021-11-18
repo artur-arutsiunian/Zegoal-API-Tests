@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import rest.objects.form.get.external.GetFormExternal;
 import rest.objects.token.Auth;
 import service.BaseService;
@@ -9,14 +11,12 @@ import static io.restassured.RestAssured.given;
 
 public class FormExternalService extends BaseService {
 
-    private final static String FORM_GET_EXTERNAL_ENDPOINT = "/api/external/form/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public GetFormExternal getGetFormExternal() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + FORM_GET_EXTERNAL_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -25,17 +25,17 @@ public class FormExternalService extends BaseService {
                 .as(GetFormExternal.class);
     }
 
-        public GetFormExternal getGetFormExternalForProd() {
-            return given()
-                    .contentType(ContentType.JSON)
-                    .header("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
-                    .when()
-                    .get(url + FORM_GET_EXTERNAL_ENDPOINT)
-                    .then()
-                    .assertThat()
-                    .contentType(ContentType.JSON)
-                    .statusCode(200)
-                    .extract()
-                    .as(GetFormExternal.class);
+    private class RequestBuilder {
+
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/external/form/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Api-Key " + auth.getApiKey().getApiKey())
+                    .build();
         }
+    }
 }

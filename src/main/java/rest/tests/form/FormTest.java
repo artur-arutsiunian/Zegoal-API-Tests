@@ -19,7 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormTest extends BaseTest {
 
-    private FormService service = new FormService();
+    private FormService service;
+
+    @BeforeAll
+    void initService(){
+        service = new FormService();
+    }
+
     private boolean isCheckCreateForm = false;
     private boolean isCheckPutForm = false;
 
@@ -31,7 +37,7 @@ public class FormTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateForm() {
-        assertEquals(service.getCreateForm().getName(), "loi9",
+        assertEquals(service.getCreateForm().getName(), "form18",
                 "Form isn't created");
         isCheckCreateForm = true;
     }
@@ -40,7 +46,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkPutForm() {
         Assumptions.assumeTrue(isCheckCreateForm);
-        assertEquals(service.getPutForm().getName(), "qwer86",
+        assertEquals(service.getPutForm().getName(), "rrr",
                 "Form isn't updated");
         isCheckPutForm = true;
     }
@@ -49,26 +55,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkGetForm() {
         Assumptions.assumeTrue(isCheckPutForm);
-        assertEquals(service.getGetForm().getCount(), 40,
-                "Quantity of forms aren't correct");
-    }
-
-    @Test
-    public void checkCreateFormForProd() {
-        assertEquals(service.getCreateFormForProd().getName(), "loi9",
-                "Form isn't created");
-    }
-
-    @Test
-    public void checkPutFormForProd() {
-        assertEquals(service.getPutFormForProd().getName(), "qwer86",
-                "Form isn't updated");
-
-    }
-
-    @Test
-    public void checkGetFormForProd() {
-        assertEquals(service.getGetFormForProd().getCount(), 3,
+        assertEquals(service.getGetForm().getCount(), 5,
                 "Quantity of forms aren't correct");
     }
 }

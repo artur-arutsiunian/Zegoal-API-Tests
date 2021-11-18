@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 
 public class ClientExternalService extends BaseService {
 
-    private final ClientExternalService.RequestBuilder requestBuilder = new ClientExternalService.RequestBuilder();
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public List<PatchClientExternal> getPatchClientExternal() {
 

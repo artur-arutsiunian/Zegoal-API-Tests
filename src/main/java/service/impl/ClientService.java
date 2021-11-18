@@ -18,11 +18,7 @@ import static io.restassured.RestAssured.given;
 
 public class ClientService extends BaseService {
 
-    private final static String CLIENT_CREATE_ENDPOINT = "/api/v1/client/";
-    private final static String CLIENT_PATCH_ENDPOINT = "/api/v1/client/2/";
-    private final static String CLIENT_GET_ENDPOINT = "/api/v1/client/";
-
-    private final ClientService.RequestBuilder requestBuilder = new ClientService.RequestBuilder();
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostClient getCreateClient() {
 
@@ -41,7 +37,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initCreateClient(Object[]... field) {
         return
-                new ClientRequest("client ou", new MainLocationPojo("main loc"));
+                new ClientRequest("client ou1", new MainLocationPojo("main loc"));
     }
 
 //    private Map<String, Object> initCreateClient(String name, String name1) {

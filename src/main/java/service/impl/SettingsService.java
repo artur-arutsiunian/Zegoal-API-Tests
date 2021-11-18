@@ -1,8 +1,10 @@
 package service.impl;
 
 import com.google.common.collect.ImmutableList;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.settings.SettingsRequest;
 import rest.objects.settings.get.GetSettings;
@@ -16,17 +18,14 @@ import static io.restassured.RestAssured.given;
 
 public class SettingsService extends BaseService {
 
-    private final static String PATCH_SETTINGS_ENDPOINT = "/api/v1/settings/list_update/";
-    private final static String GET_SETTINGS_ENDPOINT = "/api/v1/settings";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public List<PatchSetting> getPatchSettings() {
 
-        JsonPath jsonPath = given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        JsonPath jsonPath = given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchSetting())
-                .patch(url + PATCH_SETTINGS_ENDPOINT)
+                .patch("list_update/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -44,16 +43,28 @@ public class SettingsService extends BaseService {
 
     public GetSettings getGetSettings() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + GET_SETTINGS_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
                 .extract()
                 .as(GetSettings.class);
+    }
+
+    private class RequestBuilder {
+
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/settings/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

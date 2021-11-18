@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.contact.ContactRequest;
 import rest.objects.contact.ContactRequestPatch;
@@ -16,18 +18,14 @@ import static io.restassured.RestAssured.given;
 
 public class ContactService extends BaseService {
 
-    private final static String CONTACT_CREATE_ENDPOINT = "/api/v1/contact/";
-    private final static String CONTACT_PATCH_ENDPOINT = "/api/v1/contact/1/";
-    private final static String CONTACT_GET_ENDPOINT = "/api/v1/contact/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostContact getCreateContact() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateContact())
-                .post(url + CONTACT_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -39,7 +37,7 @@ public class ContactService extends BaseService {
     @SneakyThrows
     private ContactRequest initCreateContact(Object[]... field) {
         return
-                new ContactRequest("BRAD7", "291238546", "br7@mail.com", List.of(5));
+                new ContactRequest("hi contact", "291238546", "br7@mail.com", List.of(5));
     }
 
 //    private Map<String, Object> initCreateContact(String full_name, String phone_number, String email, List<Integer>locations) {
@@ -54,12 +52,10 @@ public class ContactService extends BaseService {
 
     public PatchContact getPatchContact() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchContact())
-                .patch(url + CONTACT_PATCH_ENDPOINT)
+                .patch("1/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -71,7 +67,7 @@ public class ContactService extends BaseService {
     @SneakyThrows
     private ContactRequestPatch initPatchContact(Object[]... field) {
         return
-                new ContactRequestPatch("BRA","br9@mail.com", List.of(5));
+                new ContactRequestPatch("BRA","br18@mail.com", List.of(5));
     }
 
 //    private Map<String, Object> initPatchContact(String full_name, String email, List<Integer>locations) {
@@ -85,11 +81,9 @@ public class ContactService extends BaseService {
 
     public GetContact getGetContact() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + CONTACT_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -98,63 +92,17 @@ public class ContactService extends BaseService {
                 .as(GetContact.class);
     }
 
-    public PostContact getCreateContactForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateContactForProd())
-                .post(url + CONTACT_CREATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostContact.class);
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/contact")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
-
-    @SneakyThrows
-    private ContactRequest initCreateContactForProd(Object[]... field) {
-        return
-                new ContactRequest("BRAD7", "291238546", "br7@mail.com", List.of(3));
-    }
-
-    public PatchContact getPatchContactForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPatchContactForProd())
-                .patch(url + CONTACT_PATCH_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PatchContact.class);
-    }
-
-    @SneakyThrows
-    private ContactRequestPatch initPatchContactForProd(Object[]... field) {
-        return
-                new ContactRequestPatch("BRA","br9@mail.com", List.of(3));
-    }
-
-    public GetContact getGetContactForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + CONTACT_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetContact.class);
-    }
-
 }

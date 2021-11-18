@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.asset.post.PostAsset;
 import rest.objects.form.FormFieldRequest;
@@ -17,18 +19,14 @@ import static io.restassured.RestAssured.given;
 
 public class FormService extends BaseService{
 
-    private final static String FORM_CREATE_ENDPOINT = "/api/v1/form/";
-    private final static String FORM_PUT_ENDPOINT = "/api/v1/form/2/";
-    private final static String FORM_GET_ENDPOINT = "/api/v1/form/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostAsset getCreateForm() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateForm())
-                .post(url + FORM_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -40,17 +38,15 @@ public class FormService extends BaseService{
     @SneakyThrows
     private FormRequest initCreateForm(Object[]... field) {
         return
-                new FormRequest("loi9", 1);
+                new FormRequest("form18", 1);
     }
 
     public PutForm getPutForm() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPutForm())
-                .put(url + FORM_PUT_ENDPOINT)
+                .put("2/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -62,7 +58,7 @@ public class FormService extends BaseService{
     @SneakyThrows
     private FormRequest initPutForm(Object[]... field) {
         return
-                new FormRequest("qwer86", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
+                new FormRequest("rrr", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
     }
 
 //    private Map<String, Object> initPutForm(String name, int type, String name1, String name2, int sort, int type1) {
@@ -86,11 +82,9 @@ public class FormService extends BaseService{
 
     public GetForm getGetForm() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + FORM_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -99,62 +93,17 @@ public class FormService extends BaseService{
                 .as(GetForm.class);
     }
 
-    public PostAsset getCreateFormForProd() {
+    private class RequestBuilder {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateFormForProd())
-                .post(url + FORM_CREATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostAsset.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private FormRequest initCreateFormForProd(Object[]... field) {
-        return
-                new FormRequest("loi9", 1);
-    }
-
-    public PutForm getPutFormForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initPutFormForProd())
-                .put(url + FORM_PUT_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(PutForm.class);
-    }
-
-    @SneakyThrows
-    private FormRequest initPutFormForProd(Object[]... field) {
-        return
-                new FormRequest("qwer86", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
-    }
-
-    public GetForm getGetFormForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + FORM_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetForm.class);
+        public RequestBuilder() {
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/form")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

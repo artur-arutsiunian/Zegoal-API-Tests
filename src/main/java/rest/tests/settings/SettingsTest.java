@@ -1,5 +1,6 @@
 package rest.tests.settings;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.SettingsService;
@@ -7,7 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SettingsTest extends BaseTest {
 
-    private SettingsService service = new SettingsService();
+    private SettingsService service;
+
+    @BeforeAll
+    void initService(){
+        service = new SettingsService();
+    }
 
     @Test
     public void checkPatchSettings(){

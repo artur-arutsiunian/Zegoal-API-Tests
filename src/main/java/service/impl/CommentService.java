@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.comment.CommentRequest;
 import rest.objects.comment.get.GetComment;
@@ -12,17 +14,14 @@ import static io.restassured.RestAssured.given;
 
 public class CommentService extends BaseService {
 
-    private final static String COMMENT_CREATE_ENDPOINT = "/api/v1/task_comment/";
-    private final static String COMMENT_GET_ENDPOINT = "/api/v1/task_comment/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public PostComment getCreateComment() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateComment())
-                .post(url + COMMENT_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -34,16 +33,14 @@ public class CommentService extends BaseService {
     @SneakyThrows
     private CommentRequest initCreateComment(Object[]... field) {
         return
-                new CommentRequest("ppll", 1);
+                new CommentRequest("some text1", 1);
     }
 
     public GetComment getGetComment() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + COMMENT_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -52,40 +49,17 @@ public class CommentService extends BaseService {
                 .as(GetComment.class);
     }
 
-    public PostComment getCreateCommentForProd() {
+    private class RequestBuilder{
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .body(initCreateCommentForProd())
-                .post(url + COMMENT_CREATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(201)
-                .extract()
-                .as(PostComment.class);
-    }
+        private final RequestSpecification requestSpec;
 
-    @SneakyThrows
-    private CommentRequest initCreateCommentForProd(Object[]... field) {
-        return
-                new CommentRequest("ppll", 1);
-    }
-
-    public GetComment getGetCommentForProd() {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
-                .when()
-                .get(url + COMMENT_GET_ENDPOINT)
-                .then()
-                .assertThat()
-                .contentType(ContentType.JSON)
-                .statusCode(200)
-                .extract()
-                .as(GetComment.class);
+        public RequestBuilder(){
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/task_comment")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

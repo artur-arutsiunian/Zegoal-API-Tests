@@ -24,7 +24,7 @@ public class ClientTest extends BaseTest {
 
     @Test
     public void checkCreateClient(){
-        assertEquals(service.getCreateClient().getName(), "client ou",
+        assertEquals(service.getCreateClient().getName(), "client ou1",
                 "Client name is incorrect");
     }
 
