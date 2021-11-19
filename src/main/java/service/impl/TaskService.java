@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.task.TaskRequest;
 import rest.objects.task.TaskRequestPatch;
@@ -14,17 +16,13 @@ import static io.restassured.RestAssured.given;
 
 public class TaskService extends BaseService {
 
-    private final static String TASK_CREATE_ENDPOINT = "/api/v1/task/";
-    private final static String TASK_PATCH_ENDPOINT = "/api/v1/task/3/";
-    private final static String TASK_GET_ENDPOINT = "/api/v1/task/";
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public CreateTask getCreateTask() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initTask())
-                .post(url + TASK_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -36,7 +34,7 @@ public class TaskService extends BaseService {
     @SneakyThrows
     private TaskRequest initTask(Object[]... field) {
         return
-                new TaskRequest(3, 2, 1, "test", "2021-09-18", "13:01", "2021-09-19T14:30", "faf8921b-ad1e-4232-9424-50108932fba1");
+                new TaskRequest(7, 2, 1, "test", "2021-11-18", "13:01", "2021-11-18T14:30", "8f0690fd-5dd5-4789-9131-290a7caa2fb7");
     }
 
 //    private Map<String, Object> initTask(int main_report_form, int location, int type, String description, String planned_start_at_date, String planned_start_at_time, String planned_end_at, String assigned_user) {
@@ -55,12 +53,10 @@ public class TaskService extends BaseService {
 //    }
 
     public PatchTask getPatchTask() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchTask())
-                .patch(url + TASK_PATCH_ENDPOINT)
+                .patch("3/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -73,7 +69,7 @@ public class TaskService extends BaseService {
     @SneakyThrows
     private TaskRequestPatch initPatchTask(Object[]... field) {
         return
-                new TaskRequestPatch("22592b96-a934-42c4-8479-b3ca4425e20c");
+                new TaskRequestPatch("70903f42-10e1-4878-ab3b-c4bfc11a1ef4");
     }
 
 //    private Map<String, Object> initPatchTask(String assigned_user) {
@@ -84,16 +80,28 @@ public class TaskService extends BaseService {
 //    }
 
     public GetTask getGetTask() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + TASK_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
                 .extract()
                 .as(GetTask.class);
+    }
+
+    private class RequestBuilder {
+
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder(){
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/task/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }

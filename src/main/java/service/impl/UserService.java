@@ -1,8 +1,10 @@
 package service.impl;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.Filter;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.token.Token;
 import rest.objects.user.PojoProfile;
@@ -20,27 +22,16 @@ import static io.restassured.RestAssured.given;
 
 public class UserService extends BaseService {
 
-    private final static String USER_CREATE_ENDPOINT = "/api/v1/user/";
-    private final static String USER_PATCH_ENDPOINT = "/api/v1/user/ce24c956-1ec6-4a27-a379-74de3655dc56/";
-    private final static String USER_GET_ENDPOINT = "/api/v1/user/";
-
-    /**
-     * Static method which allows us to log request and response data
-     * @see RestAssured#filters(Filter, Filter...)
-     */
-//    static {
-//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-//    }
+    private final RequestBuilder requestBuilder = new RequestBuilder();
 
     public CreateUser getCreateUser() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateUser())
-                .post(url + USER_CREATE_ENDPOINT)
-                .then().assertThat()
+                .post("/")
+                .then()
+                .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(201)
                 .extract()
@@ -51,7 +42,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequest initCreateUser(Object[]... field) {
         return
-                new UserRequest("created99@gm.com", "Wimix1", new PojoProfile("User22", "Us"), List.of(2), 3);
+                new UserRequest("nov@gm.com", "Wimix1", new PojoProfile("nov", "18"), List.of(2), 3);
     }
 
 //    private Map<String, Object> initCreateUser(String email, String password, String first_name, String last_name, List<Integer> groups, int manager) {
@@ -71,12 +62,10 @@ public class UserService extends BaseService {
 
     public Profile getPatchUser() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchUser())
-                .patch(url + USER_PATCH_ENDPOINT)
+                .patch("70903f42-10e1-4878-ab3b-c4bfc11a1ef4/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -89,7 +78,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequestPatch initPatchUser(Object[]... field) {
         return
-                new UserRequestPatch( new PojoProfilePatch("User22"));
+                new UserRequestPatch( new PojoProfilePatch("change"));
     }
 
 //    private Map<String, Object> initPatchUser(String first_name) {
@@ -100,16 +89,28 @@ public class UserService extends BaseService {
 //    }
 
     public GetUser getGetUser() {
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + USER_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
                 .extract()
                 .as(GetUser.class);
+    }
+
+    private class RequestBuilder {
+
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder(){
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/user/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }
