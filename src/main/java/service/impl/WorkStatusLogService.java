@@ -1,6 +1,8 @@
 package service.impl;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import lombok.SneakyThrows;
 import rest.objects.token.Token;
 import rest.objects.workStatusLog.PointPojoForLog;
@@ -15,17 +17,14 @@ import static io.restassured.RestAssured.given;
 
 public class WorkStatusLogService extends BaseService {
 
-    private final static String WORK_STATUS_LOG_CREATE_ENDPOINT= "/api/v1/log/work_status/";
-    private final static String WORK_STATUS_LOG_GET_ENDPOINT= "/api/v1/log/work_status/";
+    private final WorkStatusLogService.RequestBuilder requestBuilder= new WorkStatusLogService.RequestBuilder();
 
     public PostWorkStatusLog getCreateWorkStatusLog() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
                 .body(initCreateWorkStatusLog())
-                .post(url + WORK_STATUS_LOG_CREATE_ENDPOINT)
+                .post("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -37,21 +36,33 @@ public class WorkStatusLogService extends BaseService {
     @SneakyThrows
     private WorkStatusLogRequest initCreateWorkStatusLog(Object[]... field) {
         return
-                new WorkStatusLogRequest(1, "990000862471854", 28 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
+                new WorkStatusLogRequest(1, "990000862471854", 10 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
     }
 
     public GetWorkStatusLog getGetWorkStatusLog() {
 
-        return given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token.getAccessToken())
+        return given(requestBuilder.requestSpec)
                 .when()
-                .get(url + WORK_STATUS_LOG_GET_ENDPOINT)
+                .get("/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
                 .extract()
                 .as(GetWorkStatusLog.class);
+    }
+
+    private class RequestBuilder{
+
+        private final RequestSpecification requestSpec;
+
+        public RequestBuilder(){
+            this.requestSpec = new RequestSpecBuilder()
+                    .setBaseUri(url)
+                    .setBasePath("/api/v1/log/work_status/")
+                    .setContentType(ContentType.JSON)
+                    .addHeader("Authorization", "Bearer " + token.getAccessToken())
+                    .build();
+        }
     }
 }
