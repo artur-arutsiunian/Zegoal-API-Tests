@@ -1,5 +1,8 @@
 package service;
 
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import rest.objects.apikey.ApiKey;
 import rest.objects.token.Auth;
 import rest.objects.token.Token;
@@ -21,4 +24,9 @@ public abstract class BaseService {
         this.token = auth.getToken();
         this.apiKey = auth.getApiKey();
     }
+
+//    static {
+//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+//        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+//    }
 }

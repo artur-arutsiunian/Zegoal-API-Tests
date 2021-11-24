@@ -1,6 +1,7 @@
 package rest.tests.userSettings;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.UserSettingsService;
@@ -15,15 +16,17 @@ public class UserSettingsTest extends BaseTest {
        service = new UserSettingsService();
    }
 
+   @Order(1)
     @Test
     public void checkPatchUserSettings(){
-        assertEquals(service.getPatchUserSettings().get(0).getValue(), "2",
+        assertEquals(service.getPatchUserSettings().get(0).getValue(), "3",
                 "UserSettings aren't updated");
     }
 
+    @Order(2)
     @Test
     public void checkGetUserSettings(){
-        assertEquals(service.getGetUserSettings().getCount(), 88,
+        assertEquals(service.getGetUserSettings().getCount(), 132,
                 "Quantity of user settings aren't correct");
     }
 }

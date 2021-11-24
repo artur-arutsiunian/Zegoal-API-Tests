@@ -56,7 +56,7 @@ public class TaskService extends BaseService {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchTask())
-                .patch("3/")
+                .patch("4/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

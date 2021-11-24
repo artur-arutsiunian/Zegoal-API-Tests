@@ -37,7 +37,7 @@ public class EpicService extends BaseService {
     @SneakyThrows
     private EpicRequest initCreateEpic(Object[]... field) {
         return
-                new EpicRequest("2021-10-18T21:00:00", "2021-10-19T21:00:00", "new epic18", List.of(9));
+                new EpicRequest("2021-10-18T21:00:00", "2021-10-19T21:00:00", "new 25", List.of(11));
     }
 
     public PatchEpic getPatchEpic() {
@@ -57,7 +57,7 @@ public class EpicService extends BaseService {
     @SneakyThrows
     private EpicRequestPatch initPatchEpic(Object[]... field) {
         return
-                new EpicRequestPatch("2021-10-20");
+                new EpicRequestPatch("2021-10-31");
     }
 
     public GetEpic getGetEpic() {

@@ -1,6 +1,8 @@
 package rest.tests.asset;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.AssetService;
@@ -16,21 +18,31 @@ public class AssetTest extends BaseTest {
         service = new AssetService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateAsset() {
-        assertEquals(service.createAsset().getName(), "qwer107",
+        assertEquals(service.createAsset().getName(), "locationexternal",
                 "Asset isn't created");
     }
 
+    @Order(2)
     @Test
     public void checkPatchAsset() {
-        assertEquals(service.PatchAsset().getLocation(), 3,
+        assertEquals(service.PatchAsset().getLocation(), 6,
                 "Asset isn't updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetAsset() {
-        assertEquals(service.getAsset().getCount(), 4,
+        assertEquals(service.getAsset().getCount(), 7,
                 "Quantity of assets aren't correct");
+    }
+
+    @Order(4)
+    @Test
+    public void checkDeleteAsset(){
+       assertEquals(service.DeleteAsset(), 204,
+        "Asset isn't deleted");
     }
 }

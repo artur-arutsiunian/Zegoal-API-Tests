@@ -16,21 +16,24 @@ public class ScheduleTest extends BaseTest {
         service = new ScheduleService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateSchedule(){
         assertEquals(service.getCreateSchedule().getCount(), 2,
                 "Schedule isn't created");
     }
 
+    @Order(2)
     @Test
     public void checkPutSchedule(){
-        assertEquals(service.getPutSchedule().getStartDatetime(), "2021-11-17T11:10:00",
+        assertEquals(service.getPutSchedule().getStartDatetime(), "2021-11-04T11:10:00",
                 "Schedule isn't updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetSchedule(){
-        assertEquals(service.getGetSchedule().getCount(), 7,
+        assertEquals(service.getGetSchedule().getCount(), 11,
                 "Quantity of schedule aren't correct");
     }
 }

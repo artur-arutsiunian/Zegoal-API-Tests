@@ -33,7 +33,7 @@ public class CommentService extends BaseService {
     @SneakyThrows
     private CommentRequest initCreateComment(Object[]... field) {
         return
-                new CommentRequest("some text1", 1);
+                new CommentRequest("some text2", 1);
     }
 
     public GetComment getGetComment() {

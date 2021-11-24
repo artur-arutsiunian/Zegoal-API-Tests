@@ -1,6 +1,7 @@
 package rest.tests.cluster;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.objects.cluster.ClusterRequest;
 import rest.tests.BaseTest;
@@ -16,21 +17,24 @@ public class ClusterTest extends BaseTest {
         service = new ClusterService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateCluster(){
-        assertEquals(service.getCreateCluster().getPk(), 6,
+        assertEquals(service.getCreateCluster().getPk(), 7,
                 "Cluster isn't created");
     }
 
+    @Order(2)
     @Test
     public void checkPutCluster(){
-        assertEquals(service.getPutCluster().getName(), "cluster6",
+        assertEquals(service.getPutCluster().getName(), "cluster7",
                 "Cluster isn't updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetCluster(){
-        assertEquals(service.getGetCluster().getCount(), 6,
+        assertEquals(service.getGetCluster().getCount(), 7,
                 "Quantity of clusters aren't correct");
     }
 }

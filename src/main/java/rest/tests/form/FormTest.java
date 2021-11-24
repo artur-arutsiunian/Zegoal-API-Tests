@@ -1,33 +1,28 @@
 package rest.tests.form;
 
-import io.restassured.http.ContentType;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import rest.objects.asset.post.PostAsset;
-import rest.objects.form.FormRequest;
-import rest.objects.token.Token;
 import rest.tests.BaseTest;
 import service.impl.FormService;
 
-import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Execution(ExecutionMode.CONCURRENT)
-
-
 public class FormTest extends BaseTest {
 
     private FormService service;
+
+    private boolean isCheckCreateForm;
+    private boolean isCheckPutForm;
 
     @BeforeAll
     void initService(){
         service = new FormService();
     }
 
-    private boolean isCheckCreateForm = false;
-    private boolean isCheckPutForm = false;
 
     @BeforeEach
     public void BeforeEach() {
@@ -37,7 +32,7 @@ public class FormTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateForm() {
-        assertEquals(service.getCreateForm().getName(), "form18",
+        assertEquals(service.getCreateForm().getName(), "formWed02",
                 "Form isn't created");
         isCheckCreateForm = true;
     }
@@ -45,8 +40,8 @@ public class FormTest extends BaseTest {
     @Order(2)
     @Test
     public void checkPutForm() {
-        Assumptions.assumeTrue(isCheckCreateForm);
-        assertEquals(service.getPutForm().getName(), "rrr",
+//        assumeTrue(isCheckCreateForm);
+        assertEquals(service.getPutForm().getName(), "ttt",
                 "Form isn't updated");
         isCheckPutForm = true;
     }
@@ -54,8 +49,8 @@ public class FormTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetForm() {
-        Assumptions.assumeTrue(isCheckPutForm);
-        assertEquals(service.getGetForm().getCount(), 5,
+//        assumeTrue(isCheckPutForm);
+        assertEquals(service.getGetForm().getCount(), 28,
                 "Quantity of forms aren't correct");
     }
 }

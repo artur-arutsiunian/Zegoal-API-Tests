@@ -33,7 +33,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequest initCreateAsset(Object[]... field) {
         return
-                new AssetRequest("qwer107", 3);
+                new AssetRequest("locationexternal", 3);
     }
 
 //    private Map<String, Object> initCreateAsset(String name, int location) {
@@ -61,7 +61,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequestPatch initPatchAsset(Object[]... field) {
         return
-                new AssetRequestPatch(3);
+                new AssetRequestPatch(6);
     }
 
 //    private Map<String, Object> initPatchAsset(int location) {
@@ -82,6 +82,18 @@ public class AssetService extends BaseService {
                 .statusCode(200)
                 .extract()
                 .as(GetAsset.class);
+    }
+
+    public int DeleteAsset() {
+
+        return given(requestBuilder.requestSpec)
+                .when()
+                .delete("5/")
+                .then()
+                .assertThat()
+                .statusCode(204)
+                .extract()
+                .statusCode();
     }
 
     private class RequestBuilder {

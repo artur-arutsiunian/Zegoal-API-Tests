@@ -42,7 +42,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequest initCreateUser(Object[]... field) {
         return
-                new UserRequest("nov@gm.com", "Wimix1", new PojoProfile("nov", "18"), List.of(2), 3);
+                new UserRequest("someUser@gm.com", "Wimix1", new PojoProfile("nov", "18"), List.of(2), 3);
     }
 
 //    private Map<String, Object> initCreateUser(String email, String password, String first_name, String last_name, List<Integer> groups, int manager) {
@@ -78,7 +78,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequestPatch initPatchUser(Object[]... field) {
         return
-                new UserRequestPatch( new PojoProfilePatch("change"));
+                new UserRequestPatch( new PojoProfilePatch("name"));
     }
 
 //    private Map<String, Object> initPatchUser(String first_name) {

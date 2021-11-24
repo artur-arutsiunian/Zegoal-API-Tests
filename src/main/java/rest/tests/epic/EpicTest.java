@@ -1,6 +1,7 @@
 package rest.tests.epic;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.EpicService;
@@ -15,21 +16,25 @@ public class EpicTest extends BaseTest {
         service = new EpicService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateEpic(){
-        assertEquals(service.getCreateEpic().getName(), "new epic18",
+        assertEquals(service.getCreateEpic().getName(), "new 25",
                 "Epic isn't created");
+        System.out.println("");
     }
 
+    @Order(2)
     @Test
     public void checkPatchEpic(){
-        assertEquals(service.getPatchEpic().getPlannedStartAt(), "2021-10-20T00:00:00",
+        assertEquals(service.getPatchEpic().getPlannedStartAt(), "2021-10-31T00:00:00",
                 "Epic isn't updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetEpic(){
-        assertEquals(service.getGetEpic().getCount(), 7,
+        assertEquals(service.getGetEpic().getCount(), 8,
                 "Quantity of epics aren't correct");
     }
 }

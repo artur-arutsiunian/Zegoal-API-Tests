@@ -1,9 +1,6 @@
 package rest.tests.client;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import rest.tests.BaseTest;
@@ -22,21 +19,24 @@ public class ClientTest extends BaseTest {
         service = new ClientService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateClient(){
-        assertEquals(service.getCreateClient().getName(), "client ou1",
+        assertEquals(service.getCreateClient().getName(), "client ou4",
                 "Client name is incorrect");
     }
 
+    @Order(2)
     @Test
     public void checkPatchClient(){
-        assertEquals(service.getPatchClient().getName(),"client 5",
+        assertEquals(service.getPatchClient().getName(),"client 3",
                 "Client is not updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetClient(){
-        assertEquals(service.getGetClient().getCount(), 20,
+        assertEquals(service.getGetClient().getCount(), 11,
                 "Quantity of clients are incorrect");
     }
 }

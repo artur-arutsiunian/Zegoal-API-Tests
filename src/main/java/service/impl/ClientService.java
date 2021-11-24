@@ -37,7 +37,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initCreateClient(Object[]... field) {
         return
-                new ClientRequest("client ou1", new MainLocationPojo("main loc"));
+                new ClientRequest("client ou4", new MainLocationPojo("main lkl"));
     }
 
 //    private Map<String, Object> initCreateClient(String name, String name1) {
@@ -68,7 +68,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initPatchClient(Object[]... field) {
         return
-                new ClientRequest("client 5");
+                new ClientRequest("client 3");
     }
 
 //    private Map<String, Object> initPatchClient(String name) {

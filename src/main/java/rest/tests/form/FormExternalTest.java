@@ -18,7 +18,7 @@ public class FormExternalTest extends BaseTest {
 
     @Test
     public void checkGetFormExternal(){
-        assertEquals(service.getGetFormExternal().getCount(), 4,
+        assertEquals(service.getGetFormExternal().getCount(), 12,
                 "Quantity of form aren't correct");
     }
 }

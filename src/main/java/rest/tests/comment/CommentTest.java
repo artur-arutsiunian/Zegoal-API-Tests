@@ -1,6 +1,7 @@
 package rest.tests.comment;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import rest.tests.BaseTest;
 import service.impl.CommentService;
@@ -15,15 +16,17 @@ public class CommentTest extends BaseTest {
         service = new CommentService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateComment(){
-        assertEquals(service.getCreateComment().getText(), "some text1",
+        assertEquals(service.getCreateComment().getText(), "some text2",
                 "Comment isn't created");
     }
 
+    @Order(2)
     @Test
     public void checkGetComment(){
-        assertEquals(service.getGetComment().getCount(), 4,
+        assertEquals(service.getGetComment().getCount(), 6,
                 "Quantity of comments aren't correct");
     }
 }

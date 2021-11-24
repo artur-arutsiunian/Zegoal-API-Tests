@@ -1,9 +1,6 @@
 package rest.tests.contact;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import rest.tests.BaseTest;
 import service.impl.ContactService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,21 +15,24 @@ public class ContactTest extends BaseTest {
         service = new ContactService();
     }
 
+    @Order(1)
     @Test
     public void checkCreateContact(){
-        assertEquals(service.getCreateContact().getFullName(), "hi contact",
+        assertEquals(service.getCreateContact().getFullName(), "24 contact",
                 "Contact name is incorrect");
     }
 
+    @Order(2)
     @Test
     public void checkPatchContact(){
-        assertEquals(service.getPatchContact().getEmail(), "br18@mail.com",
+        assertEquals(service.getPatchContact().getEmail(), "con@mail.com",
                 "Contact isn't updated");
     }
 
+    @Order(3)
     @Test
     public void checkGetContact(){
-        assertEquals(service.getGetContact().getCount(), 6,
+        assertEquals(service.getGetContact().getCount(), 7,
                 "Quantity of contacts aren't correct");
     }
 }
