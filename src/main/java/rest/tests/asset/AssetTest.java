@@ -21,21 +21,21 @@ public class AssetTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateAsset() {
-        assertEquals(service.createAsset().getName(), "locationexternal",
+        assertEquals(service.createAsset().getName(), "asset",
                 "Asset isn't created");
     }
 
     @Order(2)
     @Test
     public void checkPatchAsset() {
-        assertEquals(service.PatchAsset().getLocation(), 6,
+        assertEquals(service.PatchAsset().getLocation(), 2,
                 "Asset isn't updated");
     }
 
     @Order(3)
     @Test
     public void checkGetAsset() {
-        assertEquals(service.getAsset().getCount(), 7,
+        assertEquals(service.getAsset().getCount(), 1,
                 "Quantity of assets aren't correct");
     }
 

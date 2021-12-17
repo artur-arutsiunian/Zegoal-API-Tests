@@ -78,7 +78,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequestPatch initPatchUser(Object[]... field) {
         return
-                new UserRequestPatch( new PojoProfilePatch("name"));
+                new UserRequestPatch( new PojoProfilePatch("lpp1"));
     }
 
 //    private Map<String, Object> initPatchUser(String first_name) {
