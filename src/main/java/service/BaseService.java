@@ -17,7 +17,7 @@ public abstract class BaseService {
 
     public BaseService() {
         switch (System.getenv("env")) {
-            case "stage" -> url = "https://fortest.zgtest.info";
+            case "stage" -> url = "https://stageautotest.zgtest.info";
             case "prod" -> url = "https://prodbaseautotest.zegoal.com";
         }
         this.auth = new AuthService(url).getAuth();
