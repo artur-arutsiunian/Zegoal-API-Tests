@@ -22,21 +22,21 @@ public class ClientTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateClient(){
-        assertEquals(service.getCreateClient().getName(), "client ou4",
+        assertEquals(service.getCreateClient().getName(), "client ou9",
                 "Client name is incorrect");
     }
 
     @Order(2)
     @Test
     public void checkPatchClient(){
-        assertEquals(service.getPatchClient().getName(),"client 3",
+        assertEquals(service.getPatchClient().getName(),"client 0",
                 "Client is not updated");
     }
 
     @Order(3)
     @Test
     public void checkGetClient(){
-        assertEquals(service.getGetClient().getCount(), 11,
+        assertEquals(service.getGetClient().getCount(), 14,
                 "Quantity of clients are incorrect");
     }
 }

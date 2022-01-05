@@ -27,7 +27,7 @@ public class UserTest extends BaseTest {
     @Order(2)
     @Test //сервер отдает null в ответе хотя по факту в админку кладет изменившееся значение
     public void checkPatchUser(){
-        assertEquals(service.getPatchUser().getFirstName(), "name",
+        assertEquals(service.getPatchUser().getFirstName(), "lpp1",
                 "User is not updated");
     }
 

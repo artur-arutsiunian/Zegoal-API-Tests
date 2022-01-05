@@ -69,7 +69,7 @@ public class TaskService extends BaseService {
     @SneakyThrows
     private TaskRequestPatch initPatchTask(Object[]... field) {
         return
-                new TaskRequestPatch("70903f42-10e1-4878-ab3b-c4bfc11a1ef4");
+                new TaskRequestPatch("8f0690fd-5dd5-4789-9131-290a7caa2fb7");
     }
 
 //    private Map<String, Object> initPatchTask(String assigned_user) {

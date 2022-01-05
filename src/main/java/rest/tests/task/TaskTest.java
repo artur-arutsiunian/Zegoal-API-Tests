@@ -26,7 +26,7 @@ public class TaskTest extends BaseTest {
     @Order(2)
     @Test
     public void checkPatchTask() {
-        assertEquals(service.getPatchTask().getAssignedUser(), "70903f42-10e1-4878-ab3b-c4bfc11a1ef4",
+        assertEquals(service.getPatchTask().getAssignedUser(), "8f0690fd-5dd5-4789-9131-290a7caa2fb7",
                 "Task user is doesn't change");
     }
 
