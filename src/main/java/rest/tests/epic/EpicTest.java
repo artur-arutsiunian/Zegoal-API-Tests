@@ -19,7 +19,7 @@ public class EpicTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateEpic(){
-        assertEquals(service.getCreateEpic().getName(), "new 25",
+        assertEquals(service.getCreateEpic().getName(), "any epic",
                 "Epic isn't created");
         System.out.println("");
     }
@@ -34,7 +34,7 @@ public class EpicTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetEpic(){
-        assertEquals(service.getGetEpic().getCount(), 39,
+        assertEquals(service.getGetEpic().getCount(), 11,
                 "Quantity of epics aren't correct");
     }
 }

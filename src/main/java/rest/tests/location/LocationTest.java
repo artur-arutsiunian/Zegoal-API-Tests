@@ -20,21 +20,21 @@ public class LocationTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateLocation() {
-        assertEquals(service.getCreateLocation().getRawAddress(), "проспект улица 10",
+        assertEquals(service.getCreateLocation().getRawAddress(), "some location",
                 "Location raw address is incorrect");
     }
 
     @Order(2)
     @Test
     public void checkPatchLocation() {
-        assertEquals(service.getPatchLocation().getRawAddress(), "ps9",
+        assertEquals(service.getPatchLocation().getRawAddress(), "just",
                 "Location isn't update");
     }
 
     @Order(3)
     @Test
     public void checkGetLocation() {
-        assertEquals(service.getGetLocation().getCount(), 26,
+        assertEquals(service.getGetLocation().getCount(), 37,
                 "Quantity of locations aren't correct");
     }
 }

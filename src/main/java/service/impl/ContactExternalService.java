@@ -37,8 +37,8 @@ public class ContactExternalService extends BaseService {
     @SneakyThrows
     private List<ContactRequestForPatchExternal> initPatchContact(Object[]... field) {
         return ImmutableList.of(
-                new ContactRequestForPatchExternal(3, true),
-                new ContactRequestForPatchExternal(4, true));
+                new ContactRequestForPatchExternal(6, true),
+                new ContactRequestForPatchExternal(5, true));
     }
 
     public GetContactExternal getGetContactExternal() {

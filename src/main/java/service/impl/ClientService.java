@@ -37,7 +37,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initCreateClient(Object[]... field) {
         return
-                new ClientRequest("client ou9", new MainLocationPojo("main lkl"));
+                new ClientRequest("somenn", new MainLocationPojo("main lkl"));
     }
 
 //    private Map<String, Object> initCreateClient(String name, String name1) {
@@ -56,7 +56,7 @@ public class ClientService extends BaseService {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchClient())
-                .patch("3/")
+                .patch("1/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -68,7 +68,7 @@ public class ClientService extends BaseService {
     @SneakyThrows
     private ClientRequest initPatchClient(Object[]... field) {
         return
-                new ClientRequest("client 0");
+                new ClientRequest("any");
     }
 
 //    private Map<String, Object> initPatchClient(String name) {

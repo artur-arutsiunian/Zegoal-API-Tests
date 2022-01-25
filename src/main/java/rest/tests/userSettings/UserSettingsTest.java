@@ -19,7 +19,7 @@ public class UserSettingsTest extends BaseTest {
    @Order(1)
     @Test
     public void checkPatchUserSettings(){
-        assertEquals(service.getPatchUserSettings().get(0).getValue(), "3",
+        assertEquals(service.getPatchUserSettings().get(0).getValue(), "+03",
                 "UserSettings aren't updated");
     }
 

@@ -18,21 +18,21 @@ public class ContactTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateContact(){
-        assertEquals(service.getCreateContact().getFullName(), "24 contact",
+        assertEquals(service.getCreateContact().getFullName(), "any contact",
                 "Contact name is incorrect");
     }
 
     @Order(2)
     @Test
     public void checkPatchContact(){
-        assertEquals(service.getPatchContact().getEmail(), "con@mail.com",
+        assertEquals(service.getPatchContact().getEmail(), "any@mail.com",
                 "Contact isn't updated");
     }
 
     @Order(3)
     @Test
     public void checkGetContact(){
-        assertEquals(service.getGetContact().getCount(), 7,
+        assertEquals(service.getGetContact().getCount(), 9,
                 "Quantity of contacts aren't correct");
     }
 }

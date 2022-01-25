@@ -20,7 +20,7 @@ public class GroupTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateGroup(){
-        assertEquals(service.CreateGroup().getName(), "auto",
+        assertEquals(service.CreateGroup().getName(), "any",
                 "Group isn't created");
     }
 

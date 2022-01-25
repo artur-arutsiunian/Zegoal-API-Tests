@@ -19,14 +19,14 @@ public class CommentNotificationTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateCommentNotification(){
-        assertEquals(service.getCreateCommentNotification().getComment(), 2,
+        assertEquals(service.getCreateCommentNotification().getComment(), 7,
                 "Comment notification isn't created");
     }
 
     @Order(2)
     @Test
     public void checkGetCommentNotification(){
-        assertEquals(service.getGetCommentNotification().getCount(), 1,
+        assertEquals(service.getGetCommentNotification().getCount(), 1, //чтобы получить ответ надо указать user recipient в админке в модели comment notification
                 "Quantity of CommentNotification aren't correct");
     }
 }

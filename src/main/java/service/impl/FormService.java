@@ -38,7 +38,7 @@ public class FormService extends BaseService{
     @SneakyThrows
     private FormRequest initCreateForm(Object[]... field) {
         return
-                new FormRequest("formWed02", 1);
+                new FormRequest("any form", 1);
     }
 
     public PutForm getPutForm() {
@@ -46,7 +46,7 @@ public class FormService extends BaseService{
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPutForm())
-                .put("16/")
+                .put("9/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -58,7 +58,7 @@ public class FormService extends BaseService{
     @SneakyThrows
     private FormRequest initPutForm(Object[]... field) {
         return
-                new FormRequest("ttt", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
+                new FormRequest("new form 17", 1, List.of(new FormGroupRequest("group_1", List.of(new FormFieldRequest("field_image", 1,7)))));
     }
 
 //    private Map<String, Object> initPutForm(String name, int type, String name1, String name2, int sort, int type1) {

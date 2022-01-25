@@ -24,7 +24,7 @@ public class ContactExternalTest extends BaseTest {
 
     @Test
     public void checkGetContactExternal(){
-        assertEquals(service.getGetContactExternal().getCount(), 7,
+        assertEquals(service.getGetContactExternal().getCount(), 9,
                 "Quantity of contacts aren't correct");
     }
 }

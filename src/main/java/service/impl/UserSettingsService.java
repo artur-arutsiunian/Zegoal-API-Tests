@@ -37,7 +37,7 @@ public class UserSettingsService extends BaseService {
     @SneakyThrows
     private List<SettingsRequest> initPatchUserSetting(Object[]... field) {
         return ImmutableList.of(
-                new SettingsRequest(6, "3"));
+                new SettingsRequest(131, "+03"));
     }
 
     public GetUserSettings getGetUserSettings() {

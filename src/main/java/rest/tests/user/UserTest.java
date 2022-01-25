@@ -20,14 +20,14 @@ public class UserTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateUser(){
-        assertEquals(service.getCreateUser().getEmail(), "someUser@gm.com",
+        assertEquals(service.getCreateUser().getEmail(), "someUser3@gm.com",
                 "User email is incorrect");
     }
 
     @Order(2)
     @Test //сервер отдает null в ответе хотя по факту в админку кладет изменившееся значение
     public void checkPatchUser(){
-        assertEquals(service.getPatchUser().getFirstName(), "lpp1",
+        assertEquals(service.getPatchUser().getFirstName(), "just",
                 "User is not updated");
     }
 

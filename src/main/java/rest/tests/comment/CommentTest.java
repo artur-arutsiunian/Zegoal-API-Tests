@@ -19,14 +19,14 @@ public class CommentTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateComment(){
-        assertEquals(service.getCreateComment().getText(), "some text2",
+        assertEquals(service.getCreateComment().getText(), "test again2",
                 "Comment isn't created");
     }
 
     @Order(2)
     @Test
     public void checkGetComment(){
-        assertEquals(service.getGetComment().getCount(), 6,
+        assertEquals(service.getGetComment().getCount(), 9,
                 "Quantity of comments aren't correct");
     }
 }
