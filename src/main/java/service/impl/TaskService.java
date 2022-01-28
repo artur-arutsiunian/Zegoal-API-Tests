@@ -34,7 +34,7 @@ public class TaskService extends BaseService {
     @SneakyThrows
     private TaskRequest initTask(Object[]... field) {
         return
-                new TaskRequest(7, 2, 1, "test", "2021-11-18", "13:01", "2021-11-18T14:30", "8f0690fd-5dd5-4789-9131-290a7caa2fb7");
+                new TaskRequest(14, 1, 1, "test", "2021-11-18", "13:01", "2021-11-18T14:30", "8f0690fd-5dd5-4789-9131-290a7caa2fb7");
     }
 
 //    private Map<String, Object> initTask(int main_report_form, int location, int type, String description, String planned_start_at_date, String planned_start_at_time, String planned_end_at, String assigned_user) {
@@ -56,7 +56,7 @@ public class TaskService extends BaseService {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchTask())
-                .patch("4/")
+                .patch("3/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)

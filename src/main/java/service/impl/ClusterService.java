@@ -37,7 +37,7 @@ public class ClusterService extends BaseService {
     @SneakyThrows
     private ClusterRequest initCreateCluster(Object[]... field) {
         return
-                new ClusterRequest("work3", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+                new ClusterRequest("working any", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
     public PutCluster getPutCluster() {
@@ -57,7 +57,7 @@ public class ClusterService extends BaseService {
     @SneakyThrows
     private ClusterRequestPut initPutCluster(Object[]... field) {
         return
-                new ClusterRequestPut("cluster7", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
+                new ClusterRequestPut("work wo", List.of("8f0690fd-5dd5-4789-9131-290a7caa2fb7"));
     }
 
     public GetCluster getGetCluster() {

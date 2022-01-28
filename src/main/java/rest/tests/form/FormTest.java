@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Execution(ExecutionMode.CONCURRENT)
+//@Execution(ExecutionMode.CONCURRENT)
 public class FormTest extends BaseTest {
 
     private FormService service;
@@ -32,7 +32,7 @@ public class FormTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateForm() {
-        assertEquals(service.getCreateForm().getName(), "formWed02",
+        assertEquals(service.getCreateForm().getName(), "any form",
                 "Form isn't created");
         isCheckCreateForm = true;
     }
@@ -41,7 +41,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkPutForm() {
 //        assumeTrue(isCheckCreateForm);
-        assertEquals(service.getPutForm().getName(), "ttt",
+        assertEquals(service.getPutForm().getName(), "new form 17",
                 "Form isn't updated");
         isCheckPutForm = true;
     }
@@ -50,7 +50,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkGetForm() {
 //        assumeTrue(isCheckPutForm);
-        assertEquals(service.getGetForm().getCount(), 28,
+        assertEquals(service.getGetForm().getCount(), 31,
                 "Quantity of forms aren't correct");
     }
 }

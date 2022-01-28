@@ -20,21 +20,21 @@ public class ClusterTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateCluster(){
-        assertEquals(service.getCreateCluster().getPk(), 7,
+        assertEquals(service.getCreateCluster().getPk(), 10,
                 "Cluster isn't created");
     }
 
     @Order(2)
     @Test
     public void checkPutCluster(){
-        assertEquals(service.getPutCluster().getName(), "cluster7",
+        assertEquals(service.getPutCluster().getName(), "work wo",
                 "Cluster isn't updated");
     }
 
     @Order(3)
     @Test
     public void checkGetCluster(){
-        assertEquals(service.getGetCluster().getCount(), 7,
+        assertEquals(service.getGetCluster().getCount(), 10,
                 "Quantity of clusters aren't correct");
     }
 }

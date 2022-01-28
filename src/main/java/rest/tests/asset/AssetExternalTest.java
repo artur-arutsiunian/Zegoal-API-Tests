@@ -27,7 +27,7 @@ public class AssetExternalTest extends BaseTest {
     @Order(2)
     @Test
     public void checkGetAssetExternal(){
-        assertEquals(service.getGetAssetExternal().getCount(), 2,
+        assertEquals(service.getGetAssetExternal().getCount(), 8,
                 "Quantity of assets aren't correct");
     }
 }

@@ -26,7 +26,7 @@ public class WorkStatusLogTest extends BaseTest {
     @Order(2)
     @Test
     public void checkGetWorkStatusLog(){
-        assertEquals(service.getGetWorkStatusLog().getCount(), 6,
+        assertEquals(service.getGetWorkStatusLog().getCount(), 8,
                 "Quantity of work logs aren't correct");
     }
 }

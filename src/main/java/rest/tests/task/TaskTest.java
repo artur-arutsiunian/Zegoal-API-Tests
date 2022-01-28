@@ -14,7 +14,8 @@ public class TaskTest extends BaseTest {
 
     @BeforeAll
     void initService(){
-        service = new TaskService();}
+        service = new TaskService();
+    }
 
     @Order(1)
     @Test
@@ -33,7 +34,7 @@ public class TaskTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetTask() {
-        assertEquals(service.getGetTask().getCount(), 11,
+        assertEquals(service.getGetTask().getCount(), 16,
                 "Quantity of task is incorrect");
     }
 }
