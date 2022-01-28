@@ -41,4 +41,11 @@ public class TaskLabelTest extends BaseTest {
         assertEquals(service.FetchIdTaskLabel().getName(), "mark",
                 "Task label pk doesn't received");
     }
+
+    @Order(5)
+    @Test
+    public void checkDeleteTaskLabel(){
+        assertEquals(service.DeleteTaskLabel(), 204,
+                "Task label isn't deleted");
+    }
 }

@@ -84,6 +84,17 @@ public class TaskLabelService extends BaseService {
                 .as(GetPkTaskLabel.class);
     }
 
+    public int DeleteTaskLabel(){
+        return given(requestBuilder.requestSpec)
+                .when()
+                .delete("3/")
+                .then()
+                .assertThat()
+                .statusCode(204)
+                .extract()
+                .statusCode();
+    }
+
     private class RequestBuilder {
 
         private final RequestSpecification requestSpec;
