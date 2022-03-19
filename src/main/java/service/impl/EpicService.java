@@ -63,7 +63,7 @@ public class EpicService extends BaseService {
     public GetEpic getGetEpic() {
 
         return given(requestBuilder.requestSpec)
-                .queryParam("limit", 20)
+                .queryParam("limit", 10)
                 .when()
                 .get("/")
                 .then()

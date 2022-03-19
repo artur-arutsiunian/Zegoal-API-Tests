@@ -34,7 +34,7 @@ public class EpicTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetEpic(){
-        assertEquals(service.getGetEpic().getCount(), 11,
+        assertEquals(service.getGetEpic().getCount(), 12,
                 "Quantity of epics aren't correct");
     }
 }
