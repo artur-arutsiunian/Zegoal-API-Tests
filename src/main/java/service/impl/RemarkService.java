@@ -13,6 +13,7 @@ import rest.objects.taskRemark.RemarkPatchRequest;
 import rest.objects.taskRemark.RemarkRequest;
 import rest.objects.taskRemark.get.GetRemark;
 import rest.objects.taskRemark.patch.PatchRemark;
+import rest.objects.taskRemark.post.PostRemark;
 import service.BaseService;
 
 import static io.restassured.RestAssured.given;
@@ -21,7 +22,7 @@ public class RemarkService extends BaseService {
 
     private final RemarkService.RequestBuilder requestBuilder = new RemarkService.RequestBuilder();
 
-    public CreateTask CreateRemark() {
+    public PostRemark CreateRemark() {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initRemark())
@@ -31,13 +32,13 @@ public class RemarkService extends BaseService {
                 .contentType(ContentType.JSON)
                 .statusCode(201)
                 .extract()
-                .as(CreateTask.class);
+                .as(PostRemark.class);
     }
 
     @SneakyThrows
     private RemarkRequest initRemark(Object[]... field) {
         return
-                new RemarkRequest("6a179384-2e51-4d5e-ae83-621a1a9be535", 1, "fix remark again", 2, 7, "add new remark");
+                new RemarkRequest("remark", "70903f42-10e1-4878-ab3b-c4bfc11a1ef4", "2022-04-05T21:00:00", "2022-04-05T21:00:00", 1, 2, 23);
     }
 
     public PatchRemark UpdateRemark() {
