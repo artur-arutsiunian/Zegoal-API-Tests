@@ -13,7 +13,6 @@ import rest.objects.taskLabel.get.getList.GetListTaskLabel;
 import rest.objects.taskLabel.get.getPk.GetPkTaskLabel;
 import rest.objects.taskLabel.post.CreateTaskLabel;
 import rest.objects.taskLabel.put.PutTaskLabel;
-import rest.tests.taskLabel.TaskLabelTest;
 import service.BaseService;
 
 import static io.restassured.RestAssured.given;
