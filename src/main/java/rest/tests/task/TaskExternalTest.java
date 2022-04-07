@@ -26,7 +26,7 @@ public class TaskExternalTest extends BaseTest {
     @Order(2)
     @Test
     public void checkGetExternalTask(){
-        assertEquals(service.getGetTaskExternal().getCount(), 17,
+        assertEquals(service.getGetTaskExternal().getCount(), 20,
                 "Quantity of tasks are incorrect");
     }
 }

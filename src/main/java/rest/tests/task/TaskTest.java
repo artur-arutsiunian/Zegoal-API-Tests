@@ -34,7 +34,7 @@ public class TaskTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetTask() {
-        assertEquals(service.getGetTask().getCount(), 16,
+        assertEquals(service.getGetTask().getCount(), 20,
                 "Quantity of task is incorrect");
     }
 }

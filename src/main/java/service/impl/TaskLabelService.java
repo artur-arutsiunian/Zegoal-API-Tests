@@ -38,18 +38,18 @@ public class TaskLabelService extends BaseService {
     @SneakyThrows
     private TaskLabelRequest initTaskLabel(Object[]... field) {
         return
-                new TaskLabelRequest("mark", "new red");
+                new TaskLabelRequest("new5", "#4f98fc");
     }
 
     public PutTaskLabel getUpdateTaskLabel(){
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPutTaskLabel())
-                .post("5/")
+                .patch("5/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
-                .statusCode(201)
+                .statusCode(200)
                 .extract()
                 .as(PutTaskLabel.class);
     }
@@ -57,7 +57,7 @@ public class TaskLabelService extends BaseService {
     @SneakyThrows
     private TaskLabelRequestPut initPutTaskLabel(Object[]... field) {
         return
-                new TaskLabelRequestPut("метка3", "aaaaaa");
+                new TaskLabelRequestPut("mark1", "#4f98fc");
     }
 
     public GetListTaskLabel FetchTaskLabel(){
@@ -75,7 +75,7 @@ public class TaskLabelService extends BaseService {
     public GetPkTaskLabel FetchIdTaskLabel(){
         return given(requestBuilder.requestSpec)
                 .when()
-                .post("6/")
+                .get("5/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -87,7 +87,7 @@ public class TaskLabelService extends BaseService {
     public int DeleteTaskLabel(){
         return given(requestBuilder.requestSpec)
                 .when()
-                .delete("3/")
+                .delete("5/")
                 .then()
                 .assertThat()
                 .statusCode(204)

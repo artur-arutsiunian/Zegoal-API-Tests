@@ -39,7 +39,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequest initCreateLocation(Object[]... field) {
         return
-                new LocationRequest(2, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "some location", 200);
+                new LocationRequest(2, new PointPojo("Point", List.of(27, 53)), "Белоруснефть-Минскавтозаправка", "location city", 200);
     }
 
 //    private Map<String, Object> initCreateLocation(String client, String type, List<Integer> coordinates, String name, String raw_address, int radius) {
@@ -73,7 +73,7 @@ public class LocationService extends BaseService {
     @SneakyThrows
     private LocationRequestForPatch initPatchLocation(Object[]... field) {
         return
-                new LocationRequestForPatch(1, "just");
+                new LocationRequestForPatch(1, "city city");
     }
 
 //    private Map<String, Object> initPatchLocation(int client, String raw_address) {

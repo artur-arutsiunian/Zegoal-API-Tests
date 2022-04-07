@@ -36,7 +36,7 @@ public class WorkStatusLogService extends BaseService {
     @SneakyThrows
     private WorkStatusLogRequest initCreateWorkStatusLog(Object[]... field) {
         return
-                new WorkStatusLogRequest(1, "990000862471854", 4 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
+                new WorkStatusLogRequest(1, "990000862471854", 7 , 1, 2, 1634837053, new PointPojoForLog("Point", List.of(53, 27)));
     }
 
     public GetWorkStatusLog getGetWorkStatusLog() {

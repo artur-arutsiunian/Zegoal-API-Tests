@@ -21,7 +21,7 @@ public class AssetTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateAsset() {
-        assertEquals(service.createAsset().getName(), "item",
+        assertEquals(service.createAsset().getName(), "items",
                 "Asset isn't created");
     }
 
@@ -35,7 +35,7 @@ public class AssetTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetAsset() {
-        assertEquals(service.getAsset().getCount(), 7,
+        assertEquals(service.getAsset().getCount(), 12,
                 "Quantity of assets aren't correct");
     }
 

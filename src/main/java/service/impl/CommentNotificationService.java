@@ -33,7 +33,7 @@ public class CommentNotificationService extends BaseService {
     @SneakyThrows
     private CommentNotificationRequest initCommentNotification(Object[]... field) {
         return
-                new CommentNotificationRequest(7);
+                new CommentNotificationRequest(9);
     }
 
     public GetCommentNotification getGetCommentNotification() {

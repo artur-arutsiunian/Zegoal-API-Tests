@@ -11,11 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class RemarkRequest {
+    public String name;
     public String creator;
+    public String planned_start_at;
+    public String planned_end_at;
     public int type;
-    public String description;
     public int task_type;
     public int linked_task;
-    public String name;
 }
 

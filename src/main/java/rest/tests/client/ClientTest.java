@@ -23,7 +23,7 @@ public class ClientTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateClient(){
-        assertEquals(service.getCreateClient().getName(), "somenn",
+        assertEquals(service.getCreateClient().getName(), "client6w",
                 "Client name is incorrect");
     }
 
@@ -37,7 +37,7 @@ public class ClientTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetClient(){
-        assertEquals(service.getGetClient().getCount(), 16,
+        assertEquals(service.getGetClient().getCount(), 20,
                 "Quantity of clients are incorrect");
     }
 }

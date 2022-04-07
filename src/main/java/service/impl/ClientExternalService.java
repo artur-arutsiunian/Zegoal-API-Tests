@@ -37,7 +37,7 @@ public class ClientExternalService extends BaseService {
     @SneakyThrows
     private List<ClientRequestForPatchExternal> initPatchClient(Object[]... field) {
         return ImmutableList.of(
-                new ClientRequestForPatchExternal(4, true),
+                new ClientRequestForPatchExternal(19, true),
                 new ClientRequestForPatchExternal(5, true));
     }
 

@@ -21,7 +21,7 @@ public class RemarkTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateRemark() {
-        assertEquals(service.CreateRemark().getDescription(), "fix remark again",
+        assertEquals(service.CreateRemark().getName(), "remark",
                 "Remark isn't created");
     }
 

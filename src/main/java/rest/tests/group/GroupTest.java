@@ -20,7 +20,7 @@ public class GroupTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateGroup(){
-        assertEquals(service.CreateGroup().getName(), "any",
+        assertEquals(service.CreateGroup().getName(), "group1",
                 "Group isn't created");
     }
 
@@ -37,7 +37,7 @@ public class GroupTest extends BaseTest {
     @Order(3)
     @Test
     public void checkReceiveGroup(){
-        assertEquals(service.FetchGroup().getCount(), 4,
+        assertEquals(service.FetchGroup().getCount(), 8,
                 "Quantity of groups aren't correct");
     }
 

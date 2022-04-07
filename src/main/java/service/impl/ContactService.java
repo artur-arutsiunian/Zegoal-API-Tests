@@ -37,7 +37,7 @@ public class ContactService extends BaseService {
     @SneakyThrows
     private ContactRequest initCreateContact(Object[]... field) {
         return
-                new ContactRequest("any contact", "291238546", "br7@mail.com", List.of(5));
+                new ContactRequest("lala", "291238546", "br7@mail.com", List.of(5));
     }
 
 //    private Map<String, Object> initCreateContact(String full_name, String phone_number, String email, List<Integer>locations) {
