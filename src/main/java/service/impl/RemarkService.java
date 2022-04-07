@@ -45,7 +45,7 @@ public class RemarkService extends BaseService {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchRemark())
-                .patch("8/")
+                .patch("21/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -64,7 +64,7 @@ public class RemarkService extends BaseService {
     public GetRemark getGetRemark() {
         return given(requestBuilder.requestSpec)
                 .when()
-                .get("8/")
+                .get("21/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -76,7 +76,7 @@ public class RemarkService extends BaseService {
     public int DeleteRemark() {
         return given(requestBuilder.requestSpec)
                 .when()
-                .delete("8/")
+                .delete("21/")
                 .then()
                 .assertThat()
                 .statusCode(204)

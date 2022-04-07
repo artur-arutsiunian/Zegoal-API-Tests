@@ -18,7 +18,7 @@ public class ContactTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateContact(){
-        assertEquals(service.getCreateContact().getFullName(), "any contact",
+        assertEquals(service.getCreateContact().getFullName(), "lala",
                 "Contact name is incorrect");
     }
 
@@ -32,7 +32,7 @@ public class ContactTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetContact(){
-        assertEquals(service.getGetContact().getCount(), 9,
+        assertEquals(service.getGetContact().getCount(), 11,
                 "Quantity of contacts aren't correct");
     }
 }

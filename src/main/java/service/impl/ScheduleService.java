@@ -37,8 +37,8 @@ public class ScheduleService extends BaseService {
     @SneakyThrows
     private List<ScheduleRequest> initCreateSchedule(Object[]... field) {
         return ImmutableList.of(
-                new ScheduleRequest("fd9a578e-cc03-4d44-adb8-bf1de7a3678e", 0, "2022-01-12 11:10", "2022-01-13 18:10", false),
-        new ScheduleRequest("fd9a578e-cc03-4d44-adb8-bf1de7a3678e", 0, "2022-01-14 8:10", "2022-01-15 17:10", false));
+                new ScheduleRequest("fd9a578e-cc03-4d44-adb8-bf1de7a3678e", 0, "2022-04-04 11:10", "2022-04-05 18:10", false),
+        new ScheduleRequest("fd9a578e-cc03-4d44-adb8-bf1de7a3678e", 0, "2022-04-04 8:10", "2022-04-05 17:10", false));
     }
 
     public PutSchedule getPutSchedule() {
@@ -58,7 +58,7 @@ public class ScheduleService extends BaseService {
     @SneakyThrows
     private ScheduleRequest initPutSchedule(Object[]... field) {
         return (
-                new ScheduleRequest("b27b4716-498f-4797-a759-fc36177d425c", 0, "2021-12-09 11:10", "2021-12-10 18:10", false));
+                new ScheduleRequest("b27b4716-498f-4797-a759-fc36177d425c", 0, "2021-12-10 11:10", "2021-12-10 18:10", false));
 }
 
     public GetSchedule getGetSchedule() {

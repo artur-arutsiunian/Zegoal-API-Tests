@@ -39,7 +39,7 @@ public class GroupService extends BaseService {
     @SneakyThrows
     private GroupRequest initCreateGroup(Object[]... field){
         return
-                new GroupRequest("any", List.of(527,528), new ProfilePojo(5));
+                new GroupRequest("group1", List.of(527,528), new ProfilePojo(5));
 
     }
 
@@ -47,7 +47,7 @@ public class GroupService extends BaseService {
         return given(requestBuilder.requestSpec)
                 .when()
                 .body(initPatchGroup())
-                .patch("8/")
+                .patch("10/")
                 .then()
                 .assertThat()
                 .contentType(ContentType.JSON)
@@ -78,7 +78,7 @@ public class GroupService extends BaseService {
     public int DeleteGroup(){
         return given(requestBuilder.requestSpec)
                 .when()
-                .delete("8/")
+                .delete("10/")
                 .then()
                 .assertThat()
                 .statusCode(204)

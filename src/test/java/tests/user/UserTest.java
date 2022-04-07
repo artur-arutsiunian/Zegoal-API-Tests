@@ -20,7 +20,7 @@ public class UserTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateUser(){
-        assertEquals(service.getCreateUser().getEmail(), "someUser3@gm.com",
+        assertEquals(service.getCreateUser().getEmail(), "new@gm.com",
                 "User email is incorrect");
     }
 
@@ -34,7 +34,7 @@ public class UserTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetUser(){
-        assertEquals(service.getGetUser().getCount(), 6,
+        assertEquals(service.getGetUser().getCount(), 7,
                 "Quantity of users is incorrect");
     }
 }

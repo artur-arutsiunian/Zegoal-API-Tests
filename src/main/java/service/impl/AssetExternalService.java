@@ -38,7 +38,7 @@ public class AssetExternalService extends BaseService {
     private List<AssetRequestForPatchExternal> initPatchAsset(Object[]... field) {
         return ImmutableList.of(
                 new AssetRequestForPatchExternal(3, true),
-                new AssetRequestForPatchExternal(4, true));
+                new AssetRequestForPatchExternal(11, true));
     }
 
     public GetAssetExternal getGetAssetExternal() {

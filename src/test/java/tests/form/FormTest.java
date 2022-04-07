@@ -32,7 +32,7 @@ public class FormTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateForm() {
-        assertEquals(service.getCreateForm().getName(), "any form",
+        assertEquals(service.getCreateForm().getName(), "forma",
                 "Form isn't created");
         isCheckCreateForm = true;
     }
@@ -41,7 +41,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkPutForm() {
 //        assumeTrue(isCheckCreateForm);
-        assertEquals(service.getPutForm().getName(), "new form 17",
+        assertEquals(service.getPutForm().getName(), "new form 10",
                 "Form isn't updated");
         isCheckPutForm = true;
     }
@@ -50,7 +50,7 @@ public class FormTest extends BaseTest {
     @Test
     public void checkGetForm() {
 //        assumeTrue(isCheckPutForm);
-        assertEquals(service.getGetForm().getCount(), 31,
+        assertEquals(service.getGetForm().getCount(), 43,
                 "Quantity of forms aren't correct");
     }
 }

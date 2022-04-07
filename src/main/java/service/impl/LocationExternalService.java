@@ -38,8 +38,8 @@ public class LocationExternalService extends BaseService {
     @SneakyThrows
     private List<LocationRequestExternal> initCreateLocation(Object[]... field) {
         return ImmutableList.of(
-                new LocationRequestExternal("for loc", "somenn"),
-        new LocationRequestExternal("for loc2", "some"));
+                new LocationRequestExternal("en", "man"),
+        new LocationRequestExternal("en1", "manc"));
     }
 
     public List<PatchLocationExternal> getPatchLocationExternal() {
@@ -59,7 +59,7 @@ public class LocationExternalService extends BaseService {
     @SneakyThrows
     private List<LocationRequestForPatchExternal> initPatchLocation(Object[]... field) {
         return ImmutableList.of(
-                new LocationRequestForPatchExternal(27, true),
+                new LocationRequestForPatchExternal(43, true),
                 new LocationRequestForPatchExternal(28, true));
     }
 

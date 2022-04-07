@@ -17,28 +17,28 @@ public class TaskLabelTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateTaskLabel(){
-        assertEquals(service.getCreateTaskLabel().getName(), "mark",
+        assertEquals(service.getCreateTaskLabel().getName(), "new5",
                 "Task label isn't created");
     }
 
     @Order(2)
     @Test
     public void checkUpdateTaskLabel(){
-        assertEquals(service.getUpdateTaskLabel().getName(), "метка3",
+        assertEquals(service.getUpdateTaskLabel().getName(), "mark1",
                 "Task label isn't updated");
     }
 
     @Order(3)
     @Test
     public void checkReceiveListTaskLabel(){
-        assertEquals(service.FetchTaskLabel().getCount(), 6,
+        assertEquals(service.FetchTaskLabel().getCount(), 2,
                 "List of task label isn't received");
     }
 
     @Order(4)
     @Test
     public void checkReceiveIdTaskLabel(){
-        assertEquals(service.FetchIdTaskLabel().getName(), "mark",
+        assertEquals(service.FetchIdTaskLabel().getName(), "mark1",
                 "Task label pk doesn't received");
     }
 

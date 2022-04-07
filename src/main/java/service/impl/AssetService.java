@@ -33,7 +33,7 @@ public class AssetService extends BaseService {
     @SneakyThrows
     private AssetRequest initCreateAsset(Object[]... field) {
         return
-                new AssetRequest("item", 2);
+                new AssetRequest("items", 2);
     }
 
 //    private Map<String, Object> initCreateAsset(String name, int location) {
@@ -88,7 +88,7 @@ public class AssetService extends BaseService {
 
         return given(requestBuilder.requestSpec)
                 .when()
-                .delete("3/")
+                .delete("11/")
                 .then()
                 .assertThat()
                 .statusCode(204)

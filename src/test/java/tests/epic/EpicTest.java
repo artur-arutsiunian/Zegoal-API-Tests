@@ -19,7 +19,7 @@ public class EpicTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateEpic(){
-        assertEquals(service.getCreateEpic().getName(), "any epic",
+        assertEquals(service.getCreateEpic().getName(), "epics",
                 "Epic isn't created");
         System.out.println("");
     }
@@ -27,14 +27,14 @@ public class EpicTest extends BaseTest {
     @Order(2)
     @Test
     public void checkPatchEpic(){
-        assertEquals(service.getPatchEpic().getPlannedStartAt(), "2021-10-31T00:00:00",
+        assertEquals(service.getPatchEpic().getPlannedStartAt(), "2021-12-30T00:00:00",
                 "Epic isn't updated");
     }
 
     @Order(3)
     @Test
     public void checkGetEpic(){
-        assertEquals(service.getGetEpic().getCount(), 12,
+        assertEquals(service.getGetEpic().getCount(), 14,
                 "Quantity of epics aren't correct");
     }
 }

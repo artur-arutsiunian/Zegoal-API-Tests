@@ -19,7 +19,7 @@ public class SettingsTest extends BaseTest {
     @Order(1)
     @Test
     public void checkPatchSettings(){
-        assertEquals(service.getPatchSettings().get(0).getValue(), "dd-mm-yy",
+        assertEquals(service.getPatchSettings().get(0).getValue(), "d-m-y",
                 "Settings aren't updated");
     }
 

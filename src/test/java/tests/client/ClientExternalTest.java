@@ -27,7 +27,7 @@ public class ClientExternalTest extends BaseTest {
     @Order(2)
     @Test
     public void checkGetClientExternal(){
-        assertEquals(service.getGetTClientExternal().getCount(), 16,
+        assertEquals(service.getGetTClientExternal().getCount(), 20,
                 "Quantity of clients aren't correct");
     }
 }

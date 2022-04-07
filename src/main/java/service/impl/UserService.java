@@ -42,7 +42,7 @@ public class UserService extends BaseService {
     @SneakyThrows
     private UserRequest initCreateUser(Object[]... field) {
         return
-                new UserRequest("someUser3@gm.com", "Wimix1", new PojoProfile("nov", "18"), List.of(2), 3);
+                new UserRequest("new@gm.com", "Wimix1", new PojoProfile("nov", "18"), List.of(2), 3);
     }
 
 //    private Map<String, Object> initCreateUser(String email, String password, String first_name, String last_name, List<Integer> groups, int manager) {

@@ -33,7 +33,7 @@ public class LocationExternalTest extends BaseTest {
     @Order(3)
     @Test
     public void checkGetLocationExternal(){
-        assertEquals(service.getGetTLocationExternal().getCount(), 39,
+        assertEquals(service.getGetTLocationExternal().getCount(), 47,
                 "Quantity of locations aren't correct");
     }
 }

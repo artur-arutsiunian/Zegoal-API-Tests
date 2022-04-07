@@ -19,7 +19,7 @@ public class CommentNotificationTest extends BaseTest {
     @Order(1)
     @Test
     public void checkCreateCommentNotification(){
-        assertEquals(service.getCreateCommentNotification().getComment(), 7,
+        assertEquals(service.getCreateCommentNotification().getComment(), 9,
                 "Comment notification isn't created");
     }
 

@@ -37,8 +37,8 @@ public class SettingsService extends BaseService {
     @SneakyThrows
     private List<SettingsRequest> initPatchSetting(Object[]... field) {
         return ImmutableList.of(
-                new SettingsRequest(2, "dd-mm-yy"),
-                new SettingsRequest(1, "UTC+02"));
+                new SettingsRequest(2, "d-m-y"),
+                new SettingsRequest(1, "UTC+03"));
     }
 
     public GetSettings getGetSettings() {
