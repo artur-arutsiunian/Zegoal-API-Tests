@@ -1,7 +1,7 @@
-package rest.tests.task;
+package tests.task;
 
 import org.junit.jupiter.api.*;
-import rest.tests.BaseTest;
+import tests.BaseTest;
 import service.impl.TaskService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
